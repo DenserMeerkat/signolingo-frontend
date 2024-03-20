@@ -1,144 +1,131 @@
+"use client";
+import { useState, useEffect } from "react";
 import {
-	Navbar as NextUINavbar,
-	NavbarContent,
-	NavbarMenu,
-	NavbarMenuToggle,
-	NavbarBrand,
-	NavbarItem,
-	NavbarMenuItem,
+  Navbar as NextUINavbar,
+  NavbarContent,
+  NavbarMenu,
+  NavbarBrand,
+  NavbarItem,
+  NavbarMenuItem,
 } from "@nextui-org/navbar";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
-import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
-
-import { link as linkStyles } from "@nextui-org/theme";
-
-import { siteConfig } from "@/config/site";
+import { Tabs, Tab } from "@nextui-org/tabs";
+import { useMediaQuery } from "@react-hook/media-query";
 import NextLink from "next/link";
 import clsx from "clsx";
+import { siteConfig } from "@/config/site";
 
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-	TwitterIcon,
-	GithubIcon,
-	DiscordIcon,
-	HeartFilledIcon,
-	SearchIcon,
-} from "@/components/icons";
-
-import { Logo } from "@/components/icons";
+import { HandMetal, UserCircle2 } from "lucide-react";
+import { DotsVerticalIcon } from "@radix-ui/react-icons";
 
 export const Navbar = () => {
-	const searchInput = (
-		<Input
-			aria-label="Search"
-			classNames={{
-				inputWrapper: "bg-default-100",
-				input: "text-sm",
-			}}
-			endContent={
-				<Kbd className="hidden lg:inline-block" keys={["command"]}>
-					K
-				</Kbd>
-			}
-			labelPlacement="outside"
-			placeholder="Search..."
-			startContent={
-				<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-			}
-			type="search"
-		/>
-	);
+  const [isDomLoaded, setIsDomLoaded] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  useEffect(() => {
+    setIsDomLoaded(true);
+  }, []);
+  if (!isDomLoaded) return null;
+  if (isMobile)
+    return (
+      <NextUINavbar
+        maxWidth="full"
+        position="sticky"
+        isBordered
+        isBlurred={false}
+        className="md:hidden h-fit"
+      >
+        <NavbarBrand>
+          <SignlingoTitle />
+        </NavbarBrand>
 
-	return (
-		<NextUINavbar maxWidth="xl" position="sticky">
-			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-				<NavbarBrand as="li" className="gap-3 max-w-fit">
-					<NextLink className="flex justify-start items-center gap-1" href="/">
-						<Logo />
-						<p className="font-bold text-inherit">ACME</p>
-					</NextLink>
-				</NavbarBrand>
-				<ul className="hidden lg:flex gap-4 justify-start ml-2">
-					{siteConfig.navItems.map((item) => (
-						<NavbarItem key={item.href}>
-							<NextLink
-								className={clsx(
-									linkStyles({ color: "foreground" }),
-									"data-[active=true]:text-primary data-[active=true]:font-medium"
-								)}
-								color="foreground"
-								href={item.href}
-							>
-								{item.label}
-							</NextLink>
-						</NavbarItem>
-					))}
-				</ul>
-			</NavbarContent>
+        <NavbarContent className="basis-1 pl-4" justify="end">
+          <ThemeSwitch />
+          <Profile />
+        </NavbarContent>
+      </NextUINavbar>
+    );
+  else
+    return (
+      <header className="hidden md:block min-w-[250px] w-full max-w-[300px] h-screen fixed border-r-2 border-border">
+        <div className="flex flex-col h-full justify-between p-4 pb-5">
+          <SignlingoTitle />
+          <div className="flex w-full gap-3 justify-between">
+            <ThemeSwitch />
+            <Profile />
+            <MoreActions />
+          </div>
+        </div>
+      </header>
+    );
+};
 
-			<NavbarContent
-				className="hidden sm:flex basis-1/5 sm:basis-full"
-				justify="end"
-			>
-				<NavbarItem className="hidden sm:flex gap-2">
-					<Link isExternal href={siteConfig.links.twitter} aria-label="Twitter">
-						<TwitterIcon className="text-default-500" />
-					</Link>
-					<Link isExternal href={siteConfig.links.discord} aria-label="Discord">
-						<DiscordIcon className="text-default-500" />
-					</Link>
-					<Link isExternal href={siteConfig.links.github} aria-label="Github">
-						<GithubIcon className="text-default-500" />
-					</Link>
-					<ThemeSwitch />
-				</NavbarItem>
-				<NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-				<NavbarItem className="hidden md:flex">
-					<Button
-            isExternal
-						as={Link}
-						className="text-sm font-normal text-default-600 bg-default-100"
-						href={siteConfig.links.sponsor}
-						startContent={<HeartFilledIcon className="text-danger" />}
-						variant="flat"
-					>
-						Sponsor
-					</Button>
-				</NavbarItem>
-			</NavbarContent>
+const SignlingoTitle = () => {
+  return (
+    <NextLink
+      className="flex justify-start md:justify-center items-center gap-2.5 text-primary md:pr-4"
+      href="/"
+    >
+      <HandMetal fill="currentColor" stroke="none" />
+      <span className="text-primary font-bold tracking-widest text-2xl">
+        {siteConfig.name.toLocaleLowerCase()}
+      </span>
+    </NextLink>
+  );
+};
 
-			<NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-				<Link isExternal href={siteConfig.links.github} aria-label="Github">
-					<GithubIcon className="text-default-500" />
-				</Link>
-				<ThemeSwitch />
-				<NavbarMenuToggle />
-			</NavbarContent>
+const Profile = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <>
+      {isMobile ? (
+        <Button
+          isIconOnly={true}
+          onPress={onOpen}
+          color="primary"
+          variant="flat"
+          className="text-primary-foreground dark:text-primary"
+        >
+          <UserCircle2 size={22} />
+        </Button>
+      ) : (
+        <Button
+          onPress={onOpen}
+          color="primary"
+          variant="flat"
+          startContent={<UserCircle2 size={22} />}
+          className="w-full text-primary-foreground dark:text-primary"
+        >
+          <span className="ml-1 text-lg font-medium tracking-widest">
+            Profile
+          </span>
+        </Button>
+      )}
+    </>
+  );
+};
 
-			<NavbarMenu>
-				{searchInput}
-				<div className="mx-4 mt-2 flex flex-col gap-2">
-					{siteConfig.navMenuItems.map((item, index) => (
-						<NavbarMenuItem key={`${item}-${index}`}>
-							<Link
-								color={
-									index === 2
-										? "primary"
-										: index === siteConfig.navMenuItems.length - 1
-										? "danger"
-										: "foreground"
-								}
-								href="#"
-								size="lg"
-							>
-								{item.label}
-							</Link>
-						</NavbarMenuItem>
-					))}
-				</div>
-			</NavbarMenu>
-		</NextUINavbar>
-	);
+const MoreActions = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <div className="flex flex-col gap-2">
+      <Button
+        isIconOnly
+        onPress={onOpen}
+        variant="flat"
+        className="dark:border-zinc-800 dark:bg-zinc-900 w-full"
+      >
+        <DotsVerticalIcon />
+      </Button>
+    </div>
+  );
 };
