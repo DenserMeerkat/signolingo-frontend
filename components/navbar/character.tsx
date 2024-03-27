@@ -21,7 +21,7 @@ const CharacterTile = (props: CharacterTileProps) => {
       <div className="flex justify-center items-center">
         <span
           className={clsx(
-            "text-primary-foreground dark:text-primary text-lg lg:text-xl font-semibold lg:w-12 lg:bg-primary/10 lgpx-1.5 lg:py-.5 lg:rounded-lg"
+            "text-primary-foreground dark:text-primary text-lg lg:text-xl font-semibold lg:w-12 lg:bg-secondary/10 dark:lg:bg-primary/10 lgpx-1.5 lg:py-.5 lg:rounded-lg"
           )}
         >
           {iconCharacters}
@@ -35,12 +35,13 @@ const CharacterTile = (props: CharacterTileProps) => {
       <Button
         isIconOnly={isTablet ? true : false}
         onPress={onPress}
-        color="primary"
+        color="secondary"
         size="lg"
         variant={isSelected ? "bordered" : "light"}
         startContent={isTablet ? null : <Icon />}
         className={clsx(
           "flex items-center lg:pr-4 lg:pl-1.5 gap-2.5 text-primary-foreground dark:text-primary lg:w-full",
+          { "bg-secondary/20 dark:bg-secondary/10": isSelected },
           className
         )}
       >

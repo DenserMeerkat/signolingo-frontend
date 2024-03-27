@@ -25,10 +25,10 @@ const ProfileTile = ({ className }: ClassNameProp) => {
           isTablet
             ? isMobile
               ? isOpen
-                ? "primary"
+                ? "secondary"
                 : "default"
-              : "primary"
-            : "primary"
+              : "secondary"
+            : "secondary"
         }
         variant="flat"
         startContent={isTablet ? null : <UserCircle2 size={22} />}
