@@ -13,8 +13,8 @@ interface CharacterTileProps extends ClassNameProp {
 
 const CharacterTile = (props: CharacterTileProps) => {
   const { iconCharacters, label, isSelected, onPress, className } = props;
-  const isMobile = useMediaQuery("(max-width: 625px)");
-  const isTablet = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useMediaQuery("(max-width: 639px)");
+  const isTablet = useMediaQuery("(max-width: 1023px)");
 
   const Icon = () => {
     return (

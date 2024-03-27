@@ -16,8 +16,8 @@ export const Navbar = () => {
 
   const [isDomLoaded, setIsDomLoaded] = useState(false);
 
-  const isMobile = useMediaQuery("(max-width: 625px)");
-  const isTablet = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useMediaQuery("(max-width: 639px)");
+  const isTablet = useMediaQuery("(max-width: 1023px)");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {

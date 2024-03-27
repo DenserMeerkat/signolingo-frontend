@@ -13,8 +13,8 @@ import { ClassNameProp } from "@/types";
 import clsx from "clsx";
 
 const ProfileTile = ({ className }: ClassNameProp) => {
-  const isMobile = useMediaQuery("(max-width: 625px)");
-  const isTablet = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useMediaQuery("(max-width: 639px)");
+  const isTablet = useMediaQuery("(max-width: 1023px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -32,16 +32,18 @@ const ProfileTile = ({ className }: ClassNameProp) => {
         }
         variant={isMobile ? "light" : "flat"}
         radius="lg"
-        startContent={isTablet ? null : <UserCircle2 size={22} />}
+        startContent={
+          isTablet ? null : <UserCircle2 className="h-7 w-7 sm:h-5 sm:w-5" />
+        }
         className={clsx(
-          "text-primary-foreground dark:text-primary lg:w-full h-14 w-14 sm:h-12 sm:w-12 lg:h-10",
-          className
+          "h-14 w-14 text-primary-foreground dark:text-primary sm:h-12 sm:w-12 lg:h-10 lg:w-full",
+          className,
         )}
       >
         {isTablet ? (
           <UserCircle2 className="h-7 w-7 sm:h-5 sm:w-5" />
         ) : (
-          <span className="hidden lg:block ml-1 text-lg font-medium tracking-widest">
+          <span className="ml-1 hidden text-lg font-medium tracking-widest lg:block">
             Profile
           </span>
         )}

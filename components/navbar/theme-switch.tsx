@@ -18,7 +18,7 @@ export interface ThemeSwitchProps {
 const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
   const { theme, setTheme } = useTheme();
   const isSSR = useIsSSR();
-  const isMobile = useMediaQuery("(max-width: 625px)");
+  const isMobile = useMediaQuery("(max-width: 639px)");
 
   const onChange = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -37,11 +37,10 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
       isIconOnly
       variant={isMobile ? "light" : "flat"}
       onClick={onChange}
-      size={isMobile ? "lg" : "md"}
       radius="lg"
       className={clsx(
-        { "dark:border-zinc-800 dark:bg-zinc-900": !isMobile },
-        className
+        "h-14 w-14 sm:h-12 sm:w-12 sm:dark:border-zinc-800 sm:dark:bg-zinc-900 lg:h-10",
+        className,
       )}
     >
       {!isSelected || isSSR ? (
