@@ -13,7 +13,7 @@ export interface ThemeSwitchProps {
   className?: string;
 }
 
-export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
+const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
   const { theme, setTheme } = useTheme();
   const isSSR = useIsSSR();
 
@@ -44,3 +44,5 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
     </Button>
   );
 };
+
+export default ThemeSwitch;
