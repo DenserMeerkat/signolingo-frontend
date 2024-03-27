@@ -18,10 +18,10 @@ const CharacterTile = (props: CharacterTileProps) => {
 
   const Icon = () => {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex items-center justify-center">
         <span
           className={clsx(
-            "text-primary-foreground dark:text-primary text-2xl sm:text-lg lg:text-xl font-semibold lg:w-12 lg:bg-secondary/10 dark:lg:bg-primary/10 lgpx-1.5 lg:py-.5 lg:rounded-lg"
+            "lgpx-1.5 lg:py-.5 text-2xl font-semibold text-primary-foreground dark:text-primary sm:text-xl lg:w-12 lg:rounded-lg lg:bg-secondary/10 dark:lg:bg-primary/10",
           )}
         >
           {iconCharacters}
@@ -40,15 +40,15 @@ const CharacterTile = (props: CharacterTileProps) => {
         startContent={isTablet ? null : <Icon />}
         radius="lg"
         className={clsx(
-          "flex items-center lg:pr-4 lg:pl-1.5 gap-2.5 text-primary-foreground dark:text-primary lg:w-full h-14 w-14 lg:h-12",
+          "flex h-14 w-14 items-center gap-2.5 text-primary-foreground dark:text-primary lg:h-12 lg:w-full lg:pl-1.5 lg:pr-4",
           { "bg-secondary/20 dark:bg-secondary/10": isSelected },
-          className
+          className,
         )}
       >
         {isTablet ? (
           <Icon />
         ) : (
-          <span className="text-lg font-medium tracking-widest w-28 text-start">
+          <span className="w-28 text-start text-lg font-medium tracking-widest">
             {label}
           </span>
         )}

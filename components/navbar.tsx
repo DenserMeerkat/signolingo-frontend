@@ -26,14 +26,14 @@ export const Navbar = () => {
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const handleLessonChange = useCallback(
     (value: string) => {
       router.push(pathname + "?" + createQueryString("l", value));
     },
-    [router, pathname, createQueryString]
+    [router, pathname, createQueryString],
   );
 
   useEffect(() => {
@@ -46,8 +46,8 @@ export const Navbar = () => {
   if (!isDomLoaded) return <></>;
   if (isMobile) {
     return (
-      <nav className="z-50 w-screen fixed border-t-2 border-border bottom-0 bg-background">
-        <div className="flex justify-center gap-4 items-center py-4 px-6">
+      <nav className="fixed bottom-0 z-50 w-screen border-t-2 border-border bg-background">
+        <div className="flex items-center justify-center gap-4 px-6 py-4">
           <ProfileTile />
           <CharacterTile
             iconCharacters="Ab"
@@ -68,10 +68,10 @@ export const Navbar = () => {
   }
   if (isTablet)
     return (
-      <nav className="w-[80px] h-screen fixed border-r-2 border-border bg-background">
-        <div className="flex flex-col h-full justify-between p-4 pb-5">
+      <nav className="fixed h-screen w-[80px] border-r-2 border-border bg-background">
+        <div className="flex h-full flex-col justify-between p-4 pb-5">
           <Title />
-          <div className="flex flex-col gap-4 items-center">
+          <div className="flex flex-col items-center gap-4">
             <CharacterTile
               iconCharacters="Ab"
               label="Alphabets"
@@ -85,7 +85,7 @@ export const Navbar = () => {
               onPress={() => handleLessonChange("num")}
             />
           </div>
-          <div className="flex flex-col lg:flex-row w-full gap-3 justify-between items-center">
+          <div className="flex w-full flex-col items-center justify-between gap-3 lg:flex-row">
             <div className="order-2">
               <ThemeSwitch />
             </div>
@@ -100,24 +100,24 @@ export const Navbar = () => {
       </nav>
     );
   return (
-    <nav className="min-w-[250px] w-full max-w-[280px] h-screen fixed border-r-2 border-border bg-background">
-      <div className="flex flex-col h-full justify-between p-4 pb-5">
+    <nav className="fixed h-screen w-full min-w-[250px] max-w-[280px] border-r-2 border-border bg-background">
+      <div className="flex h-full flex-col justify-between p-4 pb-5">
         <Title />
-        <div className="flex flex-col gap-4 px-4 items-center">
+        <div className="flex flex-col items-center gap-4 px-4">
           <CharacterTile
-            iconCharacters="Ab"
+            iconCharacters="Abc"
             label="Alphabets"
             isSelected={search == "alpha"}
             onPress={() => handleLessonChange("alpha")}
           />
           <CharacterTile
-            iconCharacters="12"
+            iconCharacters="123"
             label="Numbers"
             isSelected={search == "num"}
             onPress={() => handleLessonChange("num")}
           />
         </div>
-        <div className="flex flex-col lg:flex-row w-full gap-3 justify-between items-center">
+        <div className="flex w-full flex-col items-center justify-between gap-3 lg:flex-row">
           <ThemeSwitch />
           <ProfileTile />
           <MoreActionsTile />
