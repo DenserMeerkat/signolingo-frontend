@@ -30,15 +30,16 @@ const ProfileTile = ({ className }: ClassNameProp) => {
               : "secondary"
             : "secondary"
         }
-        variant="flat"
+        variant={isMobile ? "light" : "flat"}
+        radius="lg"
         startContent={isTablet ? null : <UserCircle2 size={22} />}
         className={clsx(
-          "text-primary-foreground dark:text-primary lg:w-full",
+          "text-primary-foreground dark:text-primary lg:w-full h-14 w-14 sm:h-12 sm:w-12 lg:h-10",
           className
         )}
       >
         {isTablet ? (
-          <UserCircle2 size={22} />
+          <UserCircle2 className="h-7 w-7 sm:h-5 sm:w-5" />
         ) : (
           <span className="hidden lg:block ml-1 text-lg font-medium tracking-widest">
             Profile

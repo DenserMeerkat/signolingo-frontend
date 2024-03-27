@@ -4,6 +4,8 @@ import { FC } from "react";
 import { useSwitch } from "@nextui-org/switch";
 import { useTheme } from "next-themes";
 import { useIsSSR } from "@react-aria/ssr";
+import { useMediaQuery } from "@react-hook/media-query";
+
 import { Button } from "@nextui-org/button";
 
 import { SunMedium, MoonStar } from "lucide-react";
@@ -16,6 +18,7 @@ export interface ThemeSwitchProps {
 const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
   const { theme, setTheme } = useTheme();
   const isSSR = useIsSSR();
+  const isMobile = useMediaQuery("(max-width: 625px)");
 
   const onChange = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -32,9 +35,14 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
   return (
     <Button
       isIconOnly
-      variant="flat"
+      variant={isMobile ? "light" : "flat"}
       onClick={onChange}
-      className={clsx(className)}
+      size={isMobile ? "lg" : "md"}
+      radius="lg"
+      className={clsx(
+        { "dark:border-zinc-800 dark:bg-zinc-900": !isMobile },
+        className
+      )}
     >
       {!isSelected || isSSR ? (
         <MoonStar className="text-primary" size={22} />

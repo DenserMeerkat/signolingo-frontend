@@ -38,7 +38,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     if (search == "") {
-      router.push(pathname + "?" + createQueryString("l", "alphabets"));
+      router.push(pathname + "?" + createQueryString("l", "alpha"));
     }
     setIsDomLoaded(true);
   }, [search, router, pathname, createQueryString]);
@@ -46,10 +46,21 @@ export const Navbar = () => {
   if (!isDomLoaded) return <></>;
   if (isMobile) {
     return (
-      <nav className="w-screen fixed border-t-2 border-border bottom-0">
-        <div className="flex justify-center gap-4 items-center py-4 px-8">
+      <nav className="z-50 w-screen fixed border-t-2 border-border bottom-0 bg-background">
+        <div className="flex justify-center gap-4 items-center py-4 px-6">
           <ProfileTile />
-          <ThemeSwitch />
+          <CharacterTile
+            iconCharacters="Ab"
+            label="Alphabets"
+            isSelected={search == "alpha"}
+            onPress={() => handleLessonChange("alpha")}
+          />
+          <CharacterTile
+            iconCharacters="12"
+            label="Numbers"
+            isSelected={search == "num"}
+            onPress={() => handleLessonChange("num")}
+          />
           <MoreActionsTile />
         </div>
       </nav>
@@ -57,7 +68,7 @@ export const Navbar = () => {
   }
   if (isTablet)
     return (
-      <nav className="w-[80px] h-screen fixed border-r-2 border-border">
+      <nav className="w-[80px] h-screen fixed border-r-2 border-border bg-background">
         <div className="flex flex-col h-full justify-between p-4 pb-5">
           <Title />
           <div className="flex flex-col gap-4 items-center">
@@ -89,25 +100,21 @@ export const Navbar = () => {
       </nav>
     );
   return (
-    <nav className="min-w-[250px] w-full max-w-[280px] h-screen fixed border-r-2 border-border">
+    <nav className="min-w-[250px] w-full max-w-[280px] h-screen fixed border-r-2 border-border bg-background">
       <div className="flex flex-col h-full justify-between p-4 pb-5">
         <Title />
         <div className="flex flex-col gap-4 px-4 items-center">
           <CharacterTile
-            iconCharacters="Abc"
+            iconCharacters="Ab"
             label="Alphabets"
-            isSelected={search == "alphabets"}
-            onPress={() => {
-              router.push(pathname + "?" + createQueryString("l", "alphabets"));
-            }}
+            isSelected={search == "alpha"}
+            onPress={() => handleLessonChange("alpha")}
           />
           <CharacterTile
-            iconCharacters="123"
+            iconCharacters="12"
             label="Numbers"
-            isSelected={search == "numbers"}
-            onPress={() => {
-              router.push(pathname + "?" + createQueryString("l", "numbers"));
-            }}
+            isSelected={search == "num"}
+            onPress={() => handleLessonChange("num")}
           />
         </div>
         <div className="flex flex-col lg:flex-row w-full gap-3 justify-between items-center">
