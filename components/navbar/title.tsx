@@ -9,13 +9,13 @@ const Title = ({ className }: ClassNameProp) => {
   return (
     <NextLink
       className={clsx(
-        "flex justify-center items-center gap-2.5 text-primary",
-        className
+        "flex items-center justify-center gap-2.5 border-b-2 border-border py-5 text-primary",
+        className,
       )}
       href="/?l=alpha"
     >
       <HandMetal fill="currentColor" className="h-8 w-8" stroke="none" />
-      <span className="hidden lg:block text-primary font-bold tracking-widest text-2xl">
+      <span className="hidden text-2xl font-bold tracking-widest text-primary lg:block">
         {siteConfig.name.toLocaleLowerCase()}
       </span>
     </NextLink>

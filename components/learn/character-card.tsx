@@ -24,9 +24,9 @@ const CharacterCard = (props: CharacterCardProp) => {
   return (
     <Button
       isIconOnly
-      variant="bordered"
+      variant={progress == 0 ? "bordered" : "flat"}
       color={getColor(progress)}
-      className="h-[4.2rem] w-16 flex-col gap-1 p-2 sm:h-28 sm:w-20 md:w-24 lg:w-24"
+      className="h-[4.2rem] w-16 flex-col gap-1 p-2 sm:h-28 sm:w-24 lg:w-24"
     >
       <div className="flex w-full flex-col items-center text-foreground dark:text-inherit">
         <CharacterSvg character={character} size={isMobile ? 24 : 40} />
@@ -37,7 +37,7 @@ const CharacterCard = (props: CharacterCardProp) => {
           color={getColor(progress)}
           aria-label="Loading..."
           value={progress}
-          className={"h-1.5 px-2 sm:h-2 md:h-3"}
+          className={"h-1.5 px-2 sm:h-2 md:h-2.5"}
         />
       </div>
     </Button>

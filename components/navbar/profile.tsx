@@ -21,22 +21,14 @@ const ProfileTile = ({ className }: ClassNameProp) => {
       <Button
         isIconOnly={isTablet ? true : false}
         onPress={onOpen}
-        color={
-          isTablet
-            ? isMobile
-              ? isOpen
-                ? "secondary"
-                : "default"
-              : "secondary"
-            : "secondary"
-        }
+        color={"secondary"}
         variant={isMobile ? "light" : "flat"}
         radius="lg"
         startContent={
           isTablet ? null : <UserCircle2 className="h-7 w-7 sm:h-5 sm:w-5" />
         }
         className={clsx(
-          "h-14 w-14 text-primary-foreground dark:text-primary sm:h-12 sm:w-12 lg:h-10 lg:w-full",
+          "h-14 w-14 text-foreground dark:text-primary sm:h-12 sm:w-12 lg:h-10 lg:w-full",
           className,
         )}
       >

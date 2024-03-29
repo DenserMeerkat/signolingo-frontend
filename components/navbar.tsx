@@ -47,32 +47,10 @@ export const Navbar = () => {
 
   if (isMobile) {
     return (
-      <nav className="fixed bottom-0 z-50 w-screen border-t-2 border-border bg-background">
-        <div className="flex items-center justify-center gap-4 px-6 py-4">
-          <ProfileTile />
-          <CharacterTile
-            iconCharacters="Ab"
-            label="Alphabets"
-            isSelected={search == "alpha"}
-            onPress={() => handleLessonChange("alpha")}
-          />
-          <CharacterTile
-            iconCharacters="12"
-            label="Numbers"
-            isSelected={search == "num"}
-            onPress={() => handleLessonChange("num")}
-          />
-          <MoreActionsTile />
-        </div>
-      </nav>
-    );
-  }
-  if (isTablet)
-    return (
-      <nav className="fixed h-screen w-[80px] border-r-2 border-border bg-background">
-        <div className="flex h-full flex-col justify-between p-4 pb-5">
-          <Title />
-          <div className="flex flex-col items-center gap-4">
+      <div className="fixed bottom-0 z-50 w-screen border-t-2 border-border bg-background">
+        <nav className="bg-foreground/[0.04]">
+          <div className="flex items-center justify-center gap-4 px-6 py-4">
+            <ProfileTile />
             <CharacterTile
               iconCharacters="Ab"
               label="Alphabets"
@@ -85,46 +63,74 @@ export const Navbar = () => {
               isSelected={search == "num"}
               onPress={() => handleLessonChange("num")}
             />
+            <MoreActionsTile />
           </div>
-          <div className="flex w-full flex-col items-center justify-between gap-3 lg:flex-row">
-            <div className="order-2">
-              <ThemeSwitch />
+        </nav>
+      </div>
+    );
+  }
+  if (isTablet)
+    return (
+      <div className="fixed h-screen min-h-fit w-[80px] border-r-2 border-border bg-background">
+        <nav className="h-full bg-foreground/[0.015]">
+          <div className="flex h-full flex-col justify-between">
+            <Title />
+            <div className="flex flex-col items-center gap-4 p-5">
+              <CharacterTile
+                iconCharacters="Ab"
+                label="Alphabets"
+                isSelected={search == "alpha"}
+                onPress={() => handleLessonChange("alpha")}
+              />
+              <CharacterTile
+                iconCharacters="12"
+                label="Numbers"
+                isSelected={search == "num"}
+                onPress={() => handleLessonChange("num")}
+              />
             </div>
-            <div className="order-1">
-              <ProfileTile />
+            <div className="flex w-full flex-col items-center justify-between gap-3 border-t-2 border-border py-5 lg:flex-row">
+              <div className="order-2">
+                <ThemeSwitch />
+              </div>
+              <div className="order-1">
+                <ProfileTile />
+              </div>
+              <div className="order-3">
+                <MoreActionsTile />
+              </div>
             </div>
-            <div className="order-3">
-              <MoreActionsTile />
-            </div>
+          </div>
+        </nav>
+      </div>
+    );
+  return (
+    <div className="fixed h-screen min-h-fit w-full min-w-[250px] max-w-[280px] border-r-2 border-border bg-background">
+      <nav className="h-full bg-foreground/[0.015]">
+        <div className="flex h-full flex-col justify-between">
+          <Title />
+          <div className="flex flex-col items-center gap-4 p-5">
+            <CharacterTile
+              iconCharacters="Abc"
+              label="Alphabets"
+              isSelected={search == "alpha"}
+              onPress={() => handleLessonChange("alpha")}
+            />
+            <CharacterTile
+              iconCharacters="123"
+              label="Numbers"
+              isSelected={search == "num"}
+              onPress={() => handleLessonChange("num")}
+            />
+          </div>
+          <div className="flex w-full flex-col items-center justify-between gap-3 border-t-2 border-border px-4 py-5 lg:flex-row">
+            <ThemeSwitch />
+            <ProfileTile />
+            <MoreActionsTile />
           </div>
         </div>
       </nav>
-    );
-  return (
-    <nav className="fixed h-screen w-full min-w-[250px] max-w-[280px] border-r-2 border-border bg-background">
-      <div className="flex h-full flex-col justify-between p-4 pb-5">
-        <Title />
-        <div className="flex flex-col items-center gap-4 px-4">
-          <CharacterTile
-            iconCharacters="Abc"
-            label="Alphabets"
-            isSelected={search == "alpha"}
-            onPress={() => handleLessonChange("alpha")}
-          />
-          <CharacterTile
-            iconCharacters="123"
-            label="Numbers"
-            isSelected={search == "num"}
-            onPress={() => handleLessonChange("num")}
-          />
-        </div>
-        <div className="flex w-full flex-col items-center justify-between gap-3 lg:flex-row">
-          <ThemeSwitch />
-          <ProfileTile />
-          <MoreActionsTile />
-        </div>
-      </div>
-    </nav>
+    </div>
   );
 };
 
