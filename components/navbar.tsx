@@ -44,6 +44,7 @@ export const Navbar = () => {
   }, [search, router, pathname, createQueryString]);
 
   if (!isDomLoaded) return <></>;
+
   if (isMobile) {
     return (
       <nav className="fixed bottom-0 z-50 w-screen border-t-2 border-border bg-background">

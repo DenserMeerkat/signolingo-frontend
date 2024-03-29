@@ -13,10 +13,10 @@ export const siteConfig = {
       href: "/login",
     },
   ],
-  navMenuItems: [],
   links: {
     github: {
       frontend: "https://github.com/densermeerkat/signolingo-frontend",
+      model: "https://github.com/NivedhaBalamurugan/signolingo-model",
     },
   },
 };

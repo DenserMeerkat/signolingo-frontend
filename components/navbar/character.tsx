@@ -40,8 +40,11 @@ const CharacterTile = (props: CharacterTileProps) => {
         startContent={isTablet ? null : <Icon />}
         radius="lg"
         className={clsx(
-          "flex h-14 w-14 items-center gap-2.5 text-primary-foreground dark:text-primary lg:h-12 lg:w-full lg:pl-1.5 lg:pr-4",
-          { "bg-secondary/20 dark:bg-secondary/10": isSelected },
+          "flex h-14 w-14 items-center gap-2.5 text-primary-foreground dark:text-foreground lg:h-12 lg:w-full lg:pl-1.5 lg:pr-4",
+          {
+            "bg-secondary/20 dark:bg-secondary/10 dark:text-secondary":
+              isSelected,
+          },
           className,
         )}
       >

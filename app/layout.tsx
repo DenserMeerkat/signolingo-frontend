@@ -37,7 +37,7 @@ export default function RootLayout({
       <head />
       <body className={clsx("min-h-screen bg-background", fredoka.className)}>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">{children}</div>
+          {children}
         </Providers>
       </body>
     </html>
