@@ -105,9 +105,8 @@ export const Navbar = () => {
             />
             <MoreActionsTile />
           </div>
-          <div className="flex w-full flex-col items-center justify-between gap-3 border-t-2 border-border px-4 py-5 lg:flex-row">
-            <ThemeSwitch />
-          </div>
+          <div></div>
+          <div></div>
         </div>
       </nav>
     </div>

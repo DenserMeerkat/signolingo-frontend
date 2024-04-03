@@ -21,7 +21,7 @@ const CharacterTile = (props: CharacterTileProps) => {
       <div className="flex items-center justify-center">
         <span
           className={clsx(
-            "dark:lg:bg-seconadry/10 text-2xl font-semibold text-primary-foreground dark:text-primary sm:text-xl lg:w-12 lg:px-1.5",
+            "dark:lg:bg-seconadry/10 text-2xl font-medium text-primary-foreground dark:font-semibold dark:text-primary sm:text-xl lg:w-12 lg:px-1.5",
           )}
         >
           {iconCharacters}

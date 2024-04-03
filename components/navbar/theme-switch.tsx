@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { useSwitch } from "@nextui-org/switch";
+import { Switch, useSwitch } from "@nextui-org/switch";
 import { useTheme } from "next-themes";
 import { useIsSSR } from "@react-aria/ssr";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -33,22 +33,16 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
   });
 
   return (
-    <Button
-      isIconOnly
-      variant={isMobile ? "light" : "flat"}
-      onClick={onChange}
-      radius="lg"
-      className={clsx(
-        "h-14 w-14 sm:h-12 sm:w-12 sm:dark:border-zinc-800 sm:dark:bg-zinc-900",
-        className,
-      )}
-    >
-      {!isSelected || isSSR ? (
-        <MoonStar className="text-primary" size={22} />
-      ) : (
-        <SunMedium size={22} />
-      )}
-    </Button>
+    <Switch
+      isSelected={!isSelected}
+      onChange={onChange}
+      size="md"
+      color="secondary"
+      classNames={{
+        wrapper: "mr-0",
+        thumb: "dark:bg-secondary-foreground",
+      }}
+    />
   );
 };
 
