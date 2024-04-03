@@ -39,7 +39,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
       onClick={onChange}
       radius="lg"
       className={clsx(
-        "h-14 w-14 sm:h-12 sm:w-12 sm:dark:border-zinc-800 sm:dark:bg-zinc-900 lg:h-10",
+        "h-14 w-14 sm:h-12 sm:w-12 sm:dark:border-zinc-800 sm:dark:bg-zinc-900",
         className,
       )}
     >

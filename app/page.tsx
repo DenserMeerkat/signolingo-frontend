@@ -1,30 +1,11 @@
-import { Suspense } from "react";
-import CharacterGrid from "@/components/learn/character-grid";
-import { CircularProgress } from "@nextui-org/progress";
-import { Navbar } from "@/components/navbar";
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
-  return (
-    <>
-      <main className="pb-36 md:pb-0">
-        <Suspense fallback={<LoadingScreen />}>
-          <Navbar />
-          <CharacterGrid />
-        </Suspense>
-      </main>
-    </>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/learn");
+  }, [router]);
+  return <main />;
 }
-
-const LoadingScreen = () => {
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-      <CircularProgress
-        aria-label="Loading..."
-        classNames={{
-          svg: "w-20 h-20 drop-shadow-md",
-        }}
-      />
-    </div>
-  );
-};

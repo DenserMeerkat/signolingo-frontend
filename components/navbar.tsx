@@ -13,6 +13,7 @@ export const Navbar = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const search = searchParams.get("l") || "";
+  const activePath = pathname.split("/")[1];
 
   const [isDomLoaded, setIsDomLoaded] = useState(false);
 
@@ -29,19 +30,26 @@ export const Navbar = () => {
     [searchParams],
   );
 
-  const handleLessonChange = useCallback(
+  const handleLearnChange = useCallback(
     (value: string) => {
-      router.push(pathname + "?" + createQueryString("l", value));
+      router.push("learn?" + createQueryString("l", value));
     },
-    [router, pathname, createQueryString],
+    [router, createQueryString],
+  );
+
+  const handleRouteChange = useCallback(
+    (path: string) => {
+      router.push(path);
+    },
+    [router],
   );
 
   useEffect(() => {
-    if (search == "") {
-      router.push(pathname + "?" + createQueryString("l", "alpha"));
+    if (activePath == "learn" && search == "") {
+      router.push("learn?" + createQueryString("l", "alpha"));
     }
     setIsDomLoaded(true);
-  }, [search, router, pathname, createQueryString]);
+  }, [activePath, search, router, createQueryString]);
 
   if (!isDomLoaded) return <></>;
 
@@ -49,19 +57,22 @@ export const Navbar = () => {
     return (
       <div className="fixed bottom-0 z-50 w-screen border-t-2 border-border bg-background">
         <nav className="bg-foreground/[0.04]">
-          <div className="flex items-center justify-center gap-4 px-6 py-4">
-            <ProfileTile />
+          <div className="flex items-center justify-center gap-4 px-6 py-3">
+            <ProfileTile
+              isSelected={activePath === "profile"}
+              onPress={() => router.push("/profile")}
+            />
             <CharacterTile
               iconCharacters="Ab"
               label="Alphabets"
               isSelected={search == "alpha"}
-              onPress={() => handleLessonChange("alpha")}
+              onPress={() => handleLearnChange("alpha")}
             />
             <CharacterTile
               iconCharacters="12"
               label="Numbers"
               isSelected={search == "num"}
-              onPress={() => handleLessonChange("num")}
+              onPress={() => handleLearnChange("num")}
             />
             <MoreActionsTile />
           </div>
@@ -69,72 +80,36 @@ export const Navbar = () => {
       </div>
     );
   }
-  if (isTablet)
-    return (
-      <div className="fixed h-screen min-h-fit w-[80px] border-r-2 border-border bg-background">
-        <nav className="h-full bg-foreground/[0.015]">
-          <div className="flex h-full flex-col justify-between">
-            <Title />
-            <div className="flex flex-col items-center gap-4 p-5">
-              <CharacterTile
-                iconCharacters="Ab"
-                label="Alphabets"
-                isSelected={search == "alpha"}
-                onPress={() => handleLessonChange("alpha")}
-              />
-              <CharacterTile
-                iconCharacters="12"
-                label="Numbers"
-                isSelected={search == "num"}
-                onPress={() => handleLessonChange("num")}
-              />
-            </div>
-            <div className="flex w-full flex-col items-center justify-between gap-3 border-t-2 border-border py-5 lg:flex-row">
-              <div className="order-2">
-                <ThemeSwitch />
-              </div>
-              <div className="order-1">
-                <ProfileTile />
-              </div>
-              <div className="order-3">
-                <MoreActionsTile />
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
-    );
+
   return (
-    <div className="fixed h-screen min-h-fit w-full min-w-[250px] max-w-[280px] border-r-2 border-border bg-background">
+    <div className="fixed h-screen min-h-fit w-[80px] max-w-[260px] border-r-2 border-border bg-background lg:w-full">
       <nav className="h-full bg-foreground/[0.015]">
         <div className="flex h-full flex-col justify-between">
           <Title />
           <div className="flex flex-col items-center gap-4 p-5">
             <CharacterTile
-              iconCharacters="Abc"
+              iconCharacters={isTablet ? "Ab" : "Abc"}
               label="Alphabets"
-              isSelected={search == "alpha"}
-              onPress={() => handleLessonChange("alpha")}
+              isSelected={activePath == "learn" && search == "alpha"}
+              onPress={() => handleLearnChange("alpha")}
             />
             <CharacterTile
-              iconCharacters="123"
+              iconCharacters={isTablet ? "12" : "123"}
               label="Numbers"
-              isSelected={search == "num"}
-              onPress={() => handleLessonChange("num")}
+              isSelected={activePath == "learn" && search == "num"}
+              onPress={() => handleLearnChange("num")}
             />
+            <ProfileTile
+              isSelected={activePath === "profile"}
+              onPress={() => handleRouteChange("/profile")}
+            />
+            <MoreActionsTile />
           </div>
           <div className="flex w-full flex-col items-center justify-between gap-3 border-t-2 border-border px-4 py-5 lg:flex-row">
             <ThemeSwitch />
-            <ProfileTile />
-            <MoreActionsTile />
           </div>
         </div>
       </nav>
     </div>
   );
 };
-
-// primary: #1AE61B
-// primary-foreground: #072904
-// secondary: #1AE6E2
-// secondary-foreground: #052E2D

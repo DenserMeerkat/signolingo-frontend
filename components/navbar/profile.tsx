@@ -1,46 +1,55 @@
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-} from "@nextui-org/modal";
+"use client";
 import { Button } from "@nextui-org/button";
 import { useMediaQuery } from "@react-hook/media-query";
+import clsx from "clsx";
 import { UserCircle2 } from "lucide-react";
 import { ClassNameProp } from "@/types";
-import clsx from "clsx";
 
-const ProfileTile = ({ className }: ClassNameProp) => {
+interface ProfileTileProps extends ClassNameProp {
+  isSelected: boolean;
+  onPress: () => void;
+}
+
+const ProfileTile = (props: ProfileTileProps) => {
+  const { isSelected, onPress, className } = props;
   const isMobile = useMediaQuery("(max-width: 639px)");
   const isTablet = useMediaQuery("(max-width: 1023px)");
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const Icon = () => {
+    return (
+      <div className="flex items-center justify-center">
+        <span
+          className={clsx(
+            "dark:lg:bg-seconadry/10 flex justify-center text-primary-foreground dark:text-primary sm:text-xl lg:w-12 lg:px-1.5",
+          )}
+        >
+          <UserCircle2 className="h-6 w-6 " />
+        </span>
+      </div>
+    );
+  };
+
   return (
-    <>
-      <Button
-        isIconOnly={isTablet ? true : false}
-        onPress={onOpen}
-        color={"secondary"}
-        variant={isMobile ? "light" : "flat"}
-        radius="lg"
-        startContent={
-          isTablet ? null : <UserCircle2 className="h-7 w-7 sm:h-5 sm:w-5" />
-        }
-        className={clsx(
-          "h-14 w-14 text-foreground dark:text-primary sm:h-12 sm:w-12 lg:h-10 lg:w-full",
-          className,
-        )}
-      >
-        {isTablet ? (
-          <UserCircle2 className="h-7 w-7 sm:h-5 sm:w-5" />
-        ) : (
-          <span className="ml-1 hidden text-lg font-medium tracking-widest lg:block">
-            Profile
-          </span>
-        )}
-      </Button>
-    </>
+    <Button
+      isIconOnly={isTablet ? true : false}
+      onPress={onPress}
+      color="secondary"
+      variant={isSelected ? "flat" : "light"}
+      startContent={isTablet ? null : <Icon />}
+      radius="lg"
+      className={clsx(
+        "flex h-14 w-14 items-center gap-2.5 text-primary-foreground dark:text-foreground lg:h-12 lg:w-full lg:pl-1.5 lg:pr-4",
+        className,
+      )}
+    >
+      {isTablet ? (
+        <Icon />
+      ) : (
+        <span className="w-28 text-start text-lg font-medium tracking-widest">
+          Profile
+        </span>
+      )}
+    </Button>
   );
 };
 

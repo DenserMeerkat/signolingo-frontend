@@ -18,7 +18,7 @@ const CharacterGrid = () => {
 
   if (search === "alpha") {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 py-8 sm:ml-[80px] md:py-10 lg:ml-[280px]">
+      <div className="flex flex-col items-center justify-center gap-4 py-8 pb-28 sm:ml-[80px] md:h-screen md:py-10 md:pb-0 lg:ml-[260px]">
         <div className="flex w-full max-w-[44rem] flex-wrap justify-center gap-4 px-6">
           {Array.from({ length: 26 }).map((_, index) => (
             <CharacterCard
@@ -32,7 +32,7 @@ const CharacterGrid = () => {
     );
   }
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 py-8 sm:ml-[80px] md:py-10 lg:ml-[280px]">
+    <div className="flex flex-col items-center justify-center gap-4 py-8 pb-28 sm:ml-[80px] md:h-screen md:py-10 md:pb-0 lg:ml-[260px]">
       <div className="flex w-full max-w-[44rem] flex-wrap justify-center gap-4 px-6 ">
         {Array.from({ length: 10 }).map((_, index) => (
           <CharacterCard

@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { Fredoka } from "next/font/google";
 import { Providers } from "./providers";
 import clsx from "clsx";
+import { Navbar } from "@/components/navbar";
 
 const fredoka = Fredoka({ subsets: ["latin"] });
 
@@ -37,7 +38,10 @@ export default function RootLayout({
       <head />
       <body className={clsx("min-h-screen bg-background", fredoka.className)}>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          {children}
+          <main>
+            <Navbar />
+            {children}
+          </main>
         </Providers>
       </body>
     </html>
