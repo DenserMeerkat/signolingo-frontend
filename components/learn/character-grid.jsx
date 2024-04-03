@@ -22,10 +22,10 @@ const CharacterGrid = () => {
       <div className="flex h-fit flex-col items-center justify-center gap-4 py-6 pb-28 sm:ml-[80px] md:py-8 lg:ml-[260px]">
         <div className="sticky top-0 z-10 flex w-full flex-col items-center gap-3 bg-gradient-to-b from-background from-50% via-background/80 via-[90%] pb-12 pt-4">
           <h2 className="text-2xl font-semibold tracking-wide sm:text-3xl">
-            Let's learn alphabets
+            Let&apos;s learn alphabets
           </h2>
           <span className="mb-4 text-sm tracking-wide sm:text-base">
-            Learn your ABCs in ASL
+            Learn your ABCs in American Sign Language
           </span>
           <Button color="warning" variant="flat" onClick={() => {}} size="lg">
             <span className="font-semibold tracking-widest sm:text-lg">
@@ -49,10 +49,10 @@ const CharacterGrid = () => {
     <div className="flex h-fit flex-col items-center justify-center gap-4 py-6 pb-28 sm:ml-[80px] md:py-8 lg:ml-[260px]">
       <div className="sticky top-0 z-10 flex w-full flex-col items-center gap-3 bg-gradient-to-b from-background from-50% via-background/80 via-[90%] pb-12 pt-4">
         <h2 className="text-2xl font-semibold tracking-wide md:text-3xl">
-          Let's learn Numbers
+          Let&apos;s learn Numbers
         </h2>
         <span className="mb-4 text-sm tracking-wide sm:text-base">
-          Let's get counting in ASL
+          Start counting in American Sign Language
         </span>
         <Button color="warning" variant="flat" onClick={() => {}} size="lg">
           <span className="font-semibold tracking-widest sm:text-lg">
