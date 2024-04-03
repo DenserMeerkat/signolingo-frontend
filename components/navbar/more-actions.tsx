@@ -1,22 +1,20 @@
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-} from "@nextui-org/modal";
-import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/popover";
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
-import { CircleEllipsis, Github } from "lucide-react";
+import { CircleEllipsis } from "lucide-react";
 import { ClassNameProp } from "@/types";
 import clsx from "clsx";
 import { useMediaQuery } from "@react-hook/media-query";
 import ThemeSwitch from "./theme-switch";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { useTheme } from "next-themes";
 
 const MoreActionsTile = ({ className }: ClassNameProp) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { theme, setTheme } = useTheme();
   const isMobile = useMediaQuery("(max-width: 639px)");
   const isTablet = useMediaQuery("(max-width: 1023px)");
 
@@ -35,15 +33,16 @@ const MoreActionsTile = ({ className }: ClassNameProp) => {
   };
 
   return (
-    <Popover
-      placement={isMobile ? "top" : "right-start"}
+    <Dropdown
+      placement={isMobile ? "top" : "bottom"}
       radius="md"
       showArrow={true}
+      offset={isMobile ? 24 : 16}
+      className="border border-border"
     >
-      <PopoverTrigger>
+      <DropdownTrigger>
         <Button
           isIconOnly={isTablet ? true : false}
-          onPress={onOpen}
           color="secondary"
           variant={"light"}
           startContent={isTablet ? null : <Icon />}
@@ -61,25 +60,26 @@ const MoreActionsTile = ({ className }: ClassNameProp) => {
             </span>
           )}
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="border border-border">
-        <div className="flex flex-col gap-3 px-1 py-2">
-          <div className="flex items-center gap-6 px-3 py-1">
-            <span className="text-base font-medium tracking-wide">
-              Dark Mode
-            </span>
-            <ThemeSwitch />
-          </div>
-          <Button
-            variant="light"
-            endContent={<GitHubLogoIcon className="h-5 w-12" />}
-            className="justify-between"
-          >
-            <span className="text-base font-medium tracking-wide">Github</span>
-          </Button>
-        </div>
-      </PopoverContent>
-    </Popover>
+      </DropdownTrigger>
+      <DropdownMenu variant="flat">
+        <DropdownItem
+          isReadOnly
+          onClick={() => {
+            setTheme(theme === "dark" ? "light" : "dark");
+          }}
+          endContent={<ThemeSwitch />}
+          className="h-12 pl-3"
+        >
+          <span className="text-base font-medium">Dark Mode</span>
+        </DropdownItem>
+        <DropdownItem
+          endContent={<GitHubLogoIcon className="h-6 w-12" />}
+          className="h-12 pl-3"
+        >
+          <span className="text-base font-medium">Github</span>
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 };
 
