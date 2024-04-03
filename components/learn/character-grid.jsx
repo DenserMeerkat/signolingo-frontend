@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import CharacterCard from "./character-card";
 import { useSearchParams } from "next/navigation";
+import { Button } from "@nextui-org/button";
 
 const CharacterGrid = () => {
   const searchParams = useSearchParams();
@@ -18,7 +19,20 @@ const CharacterGrid = () => {
 
   if (search === "alpha") {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-8 pb-28 sm:ml-[80px] md:h-screen md:py-10 md:pb-0 lg:ml-[260px]">
+      <div className="flex h-fit flex-col items-center justify-center gap-4 py-6 pb-28 sm:ml-[80px] md:py-8 lg:ml-[260px]">
+        <div className="sticky top-0 z-10 flex w-full flex-col items-center gap-3 bg-gradient-to-b from-background from-50% via-background/80 via-[90%] pb-12 pt-4">
+          <h2 className="text-2xl font-semibold tracking-wide sm:text-3xl">
+            Let's learn alphabets
+          </h2>
+          <span className="mb-4 text-sm tracking-wide sm:text-base">
+            Learn your ABCs in ASL
+          </span>
+          <Button color="warning" variant="flat" onClick={() => {}} size="lg">
+            <span className="font-semibold tracking-widest sm:text-lg">
+              Learn Alphabets
+            </span>
+          </Button>
+        </div>
         <div className="flex w-full max-w-[44rem] flex-wrap justify-center gap-4 px-6">
           {Array.from({ length: 26 }).map((_, index) => (
             <CharacterCard
@@ -32,8 +46,22 @@ const CharacterGrid = () => {
     );
   }
   return (
-    <div className="flex flex-col items-center justify-center gap-4 py-8 pb-28 sm:ml-[80px] md:h-screen md:py-10 md:pb-0 lg:ml-[260px]">
-      <div className="flex w-full max-w-[44rem] flex-wrap justify-center gap-4 px-6 ">
+    <div className="flex h-fit flex-col items-center justify-center gap-4 py-6 pb-28 sm:ml-[80px] md:py-8 lg:ml-[260px]">
+      <div className="sticky top-0 z-10 flex w-full flex-col items-center gap-3 bg-gradient-to-b from-background from-50% via-background/80 via-[90%] pb-12 pt-4">
+        <h2 className="text-2xl font-semibold tracking-wide md:text-3xl">
+          Let's learn Numbers
+        </h2>
+        <span className="mb-4 text-sm tracking-wide sm:text-base">
+          Let's get counting in ASL
+        </span>
+        <Button color="warning" variant="flat" onClick={() => {}} size="lg">
+          <span className="font-semibold tracking-widest sm:text-lg">
+            Learn Numbers
+          </span>
+        </Button>
+      </div>
+
+      <div className="flex w-full max-w-[44rem] flex-wrap justify-center gap-4 px-6">
         {Array.from({ length: 10 }).map((_, index) => (
           <CharacterCard
             key={index}

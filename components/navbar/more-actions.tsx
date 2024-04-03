@@ -25,7 +25,7 @@ const MoreActionsTile = ({ className }: ClassNameProp) => {
             "dark:lg:bg-seconadry/10 flex justify-center text-primary-foreground dark:text-primary sm:text-xl lg:w-12 lg:px-1.5",
           )}
         >
-          <CircleEllipsis className="h-6 w-6 " />
+          <CircleEllipsis strokeWidth={2.5} className="h-7 w-7 sm:h-6 sm:w-6" />
         </span>
       </div>
     );

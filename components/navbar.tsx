@@ -82,7 +82,7 @@ export const Navbar = () => {
   }
 
   return (
-    <div className="fixed h-screen min-h-fit w-[80px] max-w-[260px] border-r-2 border-border bg-background lg:w-full">
+    <div className="fixed h-screen min-h-fit w-[80px] max-w-[260px] overflow-y-auto border-r-2 border-border bg-background lg:w-full">
       <nav className="h-full bg-foreground/[0.015]">
         <div className="flex h-full flex-col justify-between">
           <Title />
