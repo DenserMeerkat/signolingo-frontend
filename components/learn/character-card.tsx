@@ -2,11 +2,16 @@
 import React from "react";
 import { Button } from "@nextui-org/button";
 import { Progress } from "@nextui-org/progress";
-import { CharacterCardProp } from "@/types";
+import { ClassNameProp } from "@/types";
 import CharacterSvg from "./characters-svg";
 import { useMediaQuery } from "@react-hook/media-query";
 
-const CharacterCard = (props: CharacterCardProp) => {
+export interface CharacterCardProps extends ClassNameProp {
+  character: string;
+  progress: number;
+}
+
+const CharacterCard = (props: CharacterCardProps) => {
   const isMobile = useMediaQuery("(max-width: 639px)");
   const { character, progress } = props;
 

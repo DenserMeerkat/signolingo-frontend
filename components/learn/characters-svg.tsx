@@ -1,4 +1,9 @@
-import { CharacterSvgProps } from "@/types";
+import { SVGProps } from "react";
+
+export type CharacterSvgProps = SVGProps<SVGSVGElement> & {
+  character: string;
+  size?: number;
+};
 
 const CharacterSvg = (props: CharacterSvgProps) => {
   const { character, size, color } = props;

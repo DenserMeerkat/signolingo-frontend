@@ -36,7 +36,6 @@ const MoreActionsTile = ({ className }: ClassNameProp) => {
     <Dropdown
       placement={isMobile ? "top" : "bottom"}
       radius="md"
-      showArrow={true}
       offset={isMobile ? 24 : 16}
       className="border border-border"
     >

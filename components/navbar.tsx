@@ -6,13 +6,13 @@ import Title from "./navbar/title";
 import CharacterTile from "./navbar/character";
 import ProfileTile from "./navbar/profile";
 import MoreActionsTile from "./navbar/more-actions";
-import ThemeSwitch from "./navbar/theme-switch";
+import { CharacterType } from "@/types";
 
 export const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const search = searchParams.get("l") || "";
+  const search = searchParams.get("c") || "";
   const activePath = pathname.split("/")[1];
 
   const [isDomLoaded, setIsDomLoaded] = useState(false);
@@ -30,28 +30,14 @@ export const Navbar = () => {
     [searchParams],
   );
 
-  const handleLearnChange = useCallback(
-    (value: string) => {
-      router.push("learn?" + createQueryString("l", value));
-    },
-    [router, createQueryString],
-  );
-
-  const handleRouteChange = useCallback(
-    (path: string) => {
-      router.push(path);
-    },
-    [router],
-  );
-
   useEffect(() => {
     if (activePath == "learn" && search == "") {
-      router.push("learn?" + createQueryString("l", "alpha"));
+      router.push("learn?" + createQueryString("c", CharacterType.alphabets));
     }
     setIsDomLoaded(true);
   }, [activePath, search, router, createQueryString]);
 
-  if (!isDomLoaded) return <></>;
+  if (!isDomLoaded || activePath == "lesson") return <></>;
 
   if (isMobile) {
     return (
@@ -60,19 +46,19 @@ export const Navbar = () => {
           <div className="flex items-center justify-center gap-4 px-6 py-3">
             <ProfileTile
               isSelected={activePath === "profile"}
-              onPress={() => router.push("/profile")}
+              href="/profile"
             />
             <CharacterTile
               iconCharacters="Ab"
               label="Alphabets"
-              isSelected={search == "alpha"}
-              onPress={() => handleLearnChange("alpha")}
+              isSelected={search == CharacterType.alphabets}
+              href={"/learn?" + createQueryString("c", CharacterType.alphabets)}
             />
             <CharacterTile
               iconCharacters="12"
               label="Numbers"
-              isSelected={search == "num"}
-              onPress={() => handleLearnChange("num")}
+              isSelected={search == CharacterType.numbers}
+              href={"/learn?" + createQueryString("c", CharacterType.numbers)}
             />
             <MoreActionsTile />
           </div>
@@ -90,18 +76,22 @@ export const Navbar = () => {
             <CharacterTile
               iconCharacters={isTablet ? "Ab" : "Abc"}
               label="Alphabets"
-              isSelected={activePath == "learn" && search == "alpha"}
-              onPress={() => handleLearnChange("alpha")}
+              isSelected={
+                activePath == "learn" && search == CharacterType.alphabets
+              }
+              href={"/learn?" + createQueryString("c", CharacterType.alphabets)}
             />
             <CharacterTile
               iconCharacters={isTablet ? "12" : "123"}
               label="Numbers"
-              isSelected={activePath == "learn" && search == "num"}
-              onPress={() => handleLearnChange("num")}
+              isSelected={
+                activePath == "learn" && search == CharacterType.numbers
+              }
+              href={"/learn?" + createQueryString("c", CharacterType.numbers)}
             />
             <ProfileTile
               isSelected={activePath === "profile"}
-              onPress={() => handleRouteChange("/profile")}
+              href="/profile"
             />
             <MoreActionsTile />
           </div>

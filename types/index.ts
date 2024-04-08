@@ -1,15 +1,8 @@
-import { SVGProps } from "react";
+export enum CharacterType {
+  alphabets = "alpha",
+  numbers = "num",
+}
 
 export interface ClassNameProp {
   className?: string;
 }
-
-export interface CharacterCardProp extends ClassNameProp {
-  character: string;
-  progress: number;
-}
-
-export type CharacterSvgProps = SVGProps<SVGSVGElement> & {
-  character: string;
-  size?: number;
-};

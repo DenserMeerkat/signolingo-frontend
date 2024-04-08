@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@nextui-org/button";
+import { Link } from "@nextui-org/link";
 import { useMediaQuery } from "@react-hook/media-query";
 import clsx from "clsx";
 import { UserCircle2 } from "lucide-react";
@@ -7,11 +8,11 @@ import { ClassNameProp } from "@/types";
 
 interface ProfileTileProps extends ClassNameProp {
   isSelected: boolean;
-  onPress: () => void;
+  href: string;
 }
 
 const ProfileTile = (props: ProfileTileProps) => {
-  const { isSelected, onPress, className } = props;
+  const { isSelected, href, className } = props;
   const isMobile = useMediaQuery("(max-width: 639px)");
   const isTablet = useMediaQuery("(max-width: 1023px)");
 
@@ -31,8 +32,9 @@ const ProfileTile = (props: ProfileTileProps) => {
 
   return (
     <Button
+      href={href}
+      as={Link}
       isIconOnly={isTablet ? true : false}
-      onPress={onPress}
       color="secondary"
       variant={isSelected ? "flat" : "light"}
       startContent={isTablet ? null : <Icon />}
