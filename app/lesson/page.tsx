@@ -69,7 +69,7 @@ const LessonHeader = (props: LessonHeaderProps) => {
   );
 };
 
-export const ExitModal = ({
+const ExitModal = ({
   isOpen,
   onOpenChange,
 }: {
