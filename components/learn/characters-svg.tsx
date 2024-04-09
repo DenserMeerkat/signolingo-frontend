@@ -6,7 +6,7 @@ export type CharacterSvgProps = SVGProps<SVGSVGElement> & {
 };
 
 const CharacterSvg = (props: CharacterSvgProps) => {
-  const { character, size, color } = props;
+  const { character, size, color, className } = props;
 
   switch (character) {
     //Alphabets
@@ -20,6 +20,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -49,6 +50,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -78,6 +80,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -107,6 +110,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -142,6 +146,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -171,6 +176,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -200,6 +206,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -229,6 +236,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -258,6 +266,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -287,6 +296,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -316,6 +326,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -345,6 +356,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -374,6 +386,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -403,6 +416,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -432,6 +446,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -461,6 +476,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -490,6 +506,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <path
@@ -512,6 +529,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -541,6 +559,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -570,6 +589,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -599,6 +619,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -628,6 +649,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -657,6 +679,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -686,6 +709,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -715,6 +739,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -744,6 +769,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -780,6 +806,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -809,6 +836,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -838,6 +866,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -867,6 +896,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -896,6 +926,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -925,6 +956,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -960,6 +992,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -989,6 +1022,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -1024,6 +1058,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -1053,6 +1088,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill="currentColor">
@@ -1082,6 +1118,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           x="0"
           y="0"
           viewBox="0 0 256 300"
+          className={className}
         >
           <g>
             <g fill={"currentColor"}>

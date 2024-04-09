@@ -5,6 +5,7 @@ import LessonBottombar, {
   ResultType,
 } from "./lesson-bottombar";
 import LessonHeader from "./lesson-header";
+import MCQSign from "./questions/mcq-sign";
 
 const LessonQuestions = () => {
   const [state, setState] = useState<BottombarState>(BottombarState.Question);
@@ -27,8 +28,9 @@ const LessonQuestions = () => {
   return (
     <div className="relative h-fit min-h-screen w-full py-6 md:py-8">
       <LessonHeader progress={40} streak={3} />
+      <MCQSign />
       <LessonBottombar
-        state={BottombarState.Result}
+        state={state}
         result={{
           type: resultType,
           answer: "A",

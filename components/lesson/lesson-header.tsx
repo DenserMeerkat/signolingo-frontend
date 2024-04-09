@@ -29,26 +29,29 @@ const LessonHeader = (props: LessonHeaderProps) => {
   };
 
   return (
-    <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 md:gap-4">
-      <>
-        <Button
-          onClick={handleExit}
-          variant="flat"
-          isIconOnly
-          radius="full"
-          size="md"
-        >
-          <X />
-        </Button>
-        <ExitModal isOpen={isOpen} onOpenChange={onOpenChange} />
-      </>
-      <div className="relative w-full">
-        <Progress
-          color="primary"
-          aria-label="Lesson progress"
-          value={props.progress}
-          className="h-2.5 md:h-3"
-        />
+    <div className="fixed top-0 w-full bg-gradient-to-b from-background from-60% via-background/90 via-80% py-4">
+      <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 md:gap-4">
+        <>
+          <Button
+            onClick={handleExit}
+            variant="flat"
+            isIconOnly
+            radius="full"
+            size="md"
+            className="backdrop-blur-md"
+          >
+            <X />
+          </Button>
+          <ExitModal isOpen={isOpen} onOpenChange={onOpenChange} />
+        </>
+        <div className="relative w-full">
+          <Progress
+            color="primary"
+            aria-label="Lesson progress"
+            value={props.progress}
+            className="h-2.5 md:h-3"
+          />
+        </div>
       </div>
     </div>
   );
@@ -64,7 +67,12 @@ const ExitModal = ({
   onOpenChange: (open: boolean) => void;
 }) => {
   return (
-    <Modal size="xs" isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal
+      size="xs"
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      className="rounded-b-none sm:rounded-b-xl"
+    >
       <ModalContent>
         {(onClose) => (
           <>
