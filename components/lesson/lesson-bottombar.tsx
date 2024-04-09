@@ -87,7 +87,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                 <div className="flex items-center gap-4">
                   <div
                     className={
-                      "flex h-12 w-12 items-center justify-center rounded-full bg-foreground/[0.05] md:h-16 md:w-16"
+                      "hidden h-12 w-12 place-content-center rounded-3xl bg-foreground/[0.05] min-[450px]:grid md:h-16 md:w-16"
                     }
                   >
                     {result?.type === ResultType.Incorrect ? (
@@ -121,11 +121,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                           {resultMessage}
                         </span>
                         <span className="flex text-base text-foreground">
-                          You're on fire
-                          <span className="min-[360px]:hidden">!</span>
-                          <span className="hidden pl-1 min-[360px]:block">
-                            with your answers!
-                          </span>
+                          You&apos;re on fire with your answers!
                         </span>
                       </div>
                     )}
