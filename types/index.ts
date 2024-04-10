@@ -16,6 +16,11 @@ export enum QuestionType {
   SignWithoutHint = "sign-without-hint",
 }
 
+export enum OptionType {
+  Character = "Character",
+  Sign = "Sign",
+}
+
 export enum LessonStatus {
   Result = "Result",
   Question = "Question",

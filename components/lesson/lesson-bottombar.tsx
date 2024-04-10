@@ -45,7 +45,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
 
   if (!isDomLoaded)
     return (
-      <div className="fixed bottom-0 h-36 w-full border-t border-border bg-background md:h-32">
+      <div className="fixed bottom-0 z-40 h-20 w-full border-t border-border bg-background md:h-32">
         <div className="h-full w-full bg-foreground/[0.04] dark:bg-foreground/[0.015]" />
       </div>
     );
@@ -53,7 +53,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
   return (
     <div
       className={
-        "fixed bottom-0 h-fit min-h-[4rem] w-full border-t border-border bg-background md:h-32"
+        "fixed bottom-0 z-40 h-fit min-h-[4rem] w-full border-t border-border bg-background md:h-32"
       }
     >
       <div

@@ -1,8 +1,7 @@
-import CharacterSvg from "@/components/learn/characters-svg";
-import { ClassNameProp, ResultType, OptionType } from "@/types";
+import { ClassNameProp, OptionType, ResultType } from "@/types";
 import { CustomButton, IndexIndicator } from "./option";
 
-export interface SignOptionProps extends ClassNameProp {
+export interface CharacterOptionProps extends ClassNameProp {
   character: string;
   resultType?: ResultType;
   isSelected: boolean;
@@ -10,17 +9,17 @@ export interface SignOptionProps extends ClassNameProp {
   index: number;
 }
 
-export const SignOption = ({
+export const CharacterOption = ({
   index,
   character,
   resultType,
   isSelected,
   onClick,
   className,
-}: SignOptionProps) => {
+}: CharacterOptionProps) => {
   return (
     <CustomButton
-      optionType={OptionType.Sign}
+      optionType={OptionType.Character}
       color={
         !isSelected
           ? "default"
@@ -32,14 +31,15 @@ export const SignOption = ({
       }
       variant="bordered"
       disableRipple={true}
-      endContent={<IndexIndicator index={index} />}
+      startContent={<IndexIndicator index={index} />}
+      endContent={<div />}
       onClick={onClick}
       isSelected={isSelected}
       resultType={resultType}
     >
-      <CharacterSvg character={character} />
+      <span className="text-xl font-semibold">{character}</span>
     </CustomButton>
   );
 };
 
-SignOption.displayName = "SignOption";
+CharacterOption.displayName = "CharacterOption";

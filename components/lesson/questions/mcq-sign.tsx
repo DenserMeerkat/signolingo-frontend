@@ -11,15 +11,17 @@ const MCQSign = (porps: CharacterQuestion) => {
 
   return (
     <div
-      className={clsx("min-h-96 mx-auto h-full max-w-2xl px-4 pb-40 pt-12", {
+      className={clsx("min-h-96 mx-auto h-fit max-w-2xl px-4 pb-32 pt-10", {
         "pointer-events-none": resultType != undefined,
       })}
     >
-      <div className="flex flex-col gap-3 md:gap-8">
-        <span className="text-center text-xl font-semibold">
+      <div className="flex flex-col gap-3 py-2 md:gap-6">
+        <span className="text-center text-xl font-semibold md:text-2xl">
           Find the sign for the character shown below
         </span>
-        <span className="text-center text-4xl font-semibold">{character}</span>
+        <span className="text-center text-4xl font-semibold md:text-5xl">
+          {character}
+        </span>
 
         <div className="mx-auto mt-3 grid w-full max-w-[240px] grid-cols-2 gap-4 sm:mt-8 sm:max-w-none sm:grid-cols-4">
           {options!.map((option: string, index: number) => (

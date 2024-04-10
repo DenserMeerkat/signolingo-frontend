@@ -10,6 +10,7 @@ import {
   LessonStatus,
 } from "@/types";
 import { useLessonState } from "@/context/useLessonState";
+import QuestionView from "./questions/question-view";
 
 const LessonQuestions = () => {
   const questions: QuestionCharacter[] = [
@@ -20,7 +21,7 @@ const LessonQuestions = () => {
     },
     {
       character: "B",
-      questionType: QuestionType.McqSign,
+      questionType: QuestionType.McqCharacter,
       options: ["D", "B", "C", "A"],
     },
     {
@@ -30,7 +31,7 @@ const LessonQuestions = () => {
     },
     {
       character: "D",
-      questionType: QuestionType.McqSign,
+      questionType: QuestionType.McqCharacter,
       options: ["D", "B", "A", "C"],
     },
   ];
@@ -41,7 +42,8 @@ const LessonQuestions = () => {
     <div className="relative h-fit min-h-screen w-full py-6 md:py-8">
       <LessonHeader progress={state.progress} streak={3} />
       {state.state !== LessonStatus.Complete && (
-        <MCQSign
+        <QuestionView
+          questionType={questions[state.currentIndex].questionType}
           character={questions[state.currentIndex].character}
           options={questions[state.currentIndex].options}
           resultType={state.result?.type}
