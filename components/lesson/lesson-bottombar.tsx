@@ -3,7 +3,7 @@ import { Button } from "@nextui-org/button";
 import { Check, X } from "lucide-react";
 import { randomCorrectMessage, randomIncorrectMessage } from "@/utils/random";
 import clsx from "clsx";
-import { Result, ResultType, LessonStatus } from "@/types";
+import { Result, ResultType, LessonStatus, QuestionType } from "@/types";
 
 export enum PrimaryButtonType {
   Check = "Check",
@@ -101,10 +101,22 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                             {resultMessage}
                           </span>
                           <span className="text-base text-foreground">
-                            The right answer is{" "}
-                            <span className="font-semibold text-warning md:text-xl">
-                              &lsquo;{result?.answer}&rsquo;
-                            </span>
+                            The right answer is
+                            {result.questionType == QuestionType.McqCharacter
+                              ? " "
+                              : " option "}
+                            {result?.questionType ===
+                            QuestionType.McqCharacter ? (
+                              <span className="ml-1 font-semibold text-warning md:text-xl">
+                                &lsquo;{result?.answer}&rsquo;
+                              </span>
+                            ) : (
+                              <span className="ml-1 font-semibold text-warning md:text-xl">
+                                {result.optionIndex != undefined
+                                  ? result.optionIndex + 1
+                                  : null}
+                              </span>
+                            )}
                           </span>
                         </div>
                       ) : (

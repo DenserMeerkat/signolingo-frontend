@@ -76,6 +76,9 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
       result: {
         type: isCorrect ? ResultType.Correct : ResultType.Incorrect,
         answer: correctAnswer,
+        optionIndex:
+          questions[state.currentIndex].options?.indexOf(correctAnswer),
+        questionType: questions[state.currentIndex].questionType,
       },
     });
 

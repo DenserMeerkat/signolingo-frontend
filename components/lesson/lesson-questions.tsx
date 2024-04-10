@@ -1,12 +1,10 @@
 "use client";
 import LessonBottombar from "./lesson-bottombar";
 import LessonHeader from "./lesson-header";
-import MCQSign from "./questions/mcq-sign";
 import {
   CharacterType,
   QuestionCharacter,
   QuestionType,
-  Result,
   LessonStatus,
 } from "@/types";
 import { useLessonState } from "@/context/useLessonState";

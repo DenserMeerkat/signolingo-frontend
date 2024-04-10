@@ -15,7 +15,7 @@ const MCQSign = (porps: CharacterQuestion) => {
         "pointer-events-none": resultType != undefined,
       })}
     >
-      <div className="flex flex-col gap-3 py-2 md:gap-6">
+      <div className="mx-auto mt-3 flex max-w-2xl flex-col gap-3 px-4 sm:mt-4 md:mt-6 md:gap-8">
         <span className="text-center text-xl font-semibold md:text-2xl">
           Find the sign for the character shown below
         </span>

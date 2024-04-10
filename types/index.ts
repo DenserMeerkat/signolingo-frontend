@@ -34,6 +34,8 @@ export interface ClassNameProp {
 export interface Result {
   type: ResultType;
   answer?: string;
+  optionIndex?: number;
+  questionType: QuestionType;
 }
 
 export interface QuestionCharacter {
