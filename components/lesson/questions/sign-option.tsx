@@ -3,12 +3,11 @@ import clsx from "clsx";
 import CharacterSvg from "@/components/learn/characters-svg";
 import { useButton, ButtonProps } from "@nextui-org/button";
 import { Ripple } from "@nextui-org/ripple";
-import { ClassNameProp } from "@/types";
-import { ResultType } from "../lesson-bottombar";
+import { ClassNameProp, ResultType } from "@/types";
 
 interface CustomSignButtonProps extends ButtonProps {
   isSelected: boolean;
-  result?: ResultType;
+  resultType?: ResultType;
 }
 
 export const CustomSignButton = forwardRef<
@@ -27,7 +26,7 @@ export const CustomSignButton = forwardRef<
     ref,
     ...props,
   });
-  const { isSelected, result, onClick } = props as CustomSignButtonProps;
+  const { isSelected, resultType, onClick } = props as CustomSignButtonProps;
   const { ripples, onClear } = getRippleProps();
 
   return (
@@ -37,9 +36,9 @@ export const CustomSignButton = forwardRef<
         "relative z-0 flex flex-col items-end overflow-hidden rounded-xl border-3 p-4 outline-none transition-colors dark:border-2",
         !isSelected
           ? "border-default text-foreground-500 hover:bg-foreground-100 dark:hover:bg-foreground-50/80"
-          : result == undefined
+          : resultType == undefined
             ? "border-secondary-500 bg-secondary-100 text-secondary-500 dark:bg-secondary-400/5"
-            : result === ResultType.Correct
+            : resultType === ResultType.Correct
               ? "border-primary-500 bg-primary-100 text-primary-500 dark:bg-primary-400/5"
               : "border-danger-500 bg-danger-100 text-danger-500 dark:bg-danger-400/5",
       )}
@@ -70,7 +69,7 @@ IndexIndicator.displayName = "IndexIndicator";
 
 export interface SignOptionProps extends ClassNameProp {
   character: string;
-  result?: ResultType;
+  resultType?: ResultType;
   isSelected: boolean;
   onClick: () => void;
   index: number;
@@ -79,7 +78,7 @@ export interface SignOptionProps extends ClassNameProp {
 export const SignOption = ({
   index,
   character,
-  result,
+  resultType,
   isSelected,
   onClick,
   className,
@@ -89,9 +88,9 @@ export const SignOption = ({
       color={
         !isSelected
           ? "default"
-          : result == undefined
+          : resultType == undefined
             ? "secondary"
-            : result === ResultType.Correct
+            : resultType === ResultType.Correct
               ? "success"
               : "danger"
       }
@@ -100,7 +99,7 @@ export const SignOption = ({
       endContent={<IndexIndicator index={index} />}
       onClick={onClick}
       isSelected={isSelected}
-      result={result}
+      resultType={resultType}
     >
       <CharacterSvg character={character} />
     </CustomSignButton>

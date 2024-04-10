@@ -10,7 +10,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
 
   switch (character) {
     //Alphabets
-    case "A":
+    case "A" || "a":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "B":
+    case "B" || "b":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "C":
+    case "C" || "c":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +100,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "D":
+    case "D" || "d":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "E":
+    case "E" || "e":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +166,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "F":
+    case "F" || "f":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +196,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "G":
+    case "G" || "g":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -226,7 +226,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "H":
+    case "H" || "h":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -256,7 +256,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "I":
+    case "I" || "i":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -286,7 +286,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "J":
+    case "J" || "j":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -316,7 +316,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "K":
+    case "K" || "k":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -346,7 +346,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "L":
+    case "L" || "l":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -376,7 +376,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "M":
+    case "M" || "m":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -406,7 +406,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "N":
+    case "N" || "n":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -436,7 +436,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "O":
+    case "O" || "o":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -466,7 +466,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "P":
+    case "P" || "p":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -496,7 +496,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "Q":
+    case "Q" || "q":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -519,7 +519,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "R":
+    case "R" || "r":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -549,7 +549,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "S":
+    case "S" || "s":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -579,7 +579,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "T":
+    case "T" || "t":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -609,7 +609,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "U":
+    case "U" || "u":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -639,7 +639,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "V":
+    case "V" || "v":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -669,7 +669,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "W":
+    case "W" || "w":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -699,7 +699,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "X":
+    case "X" || "x":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -729,7 +729,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "Y":
+    case "Y" || "y":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -759,7 +759,7 @@ const CharacterSvg = (props: CharacterSvgProps) => {
           </g>
         </svg>
       );
-    case "Z":
+    case "Z" || "z":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"

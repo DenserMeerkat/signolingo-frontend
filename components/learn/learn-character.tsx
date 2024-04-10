@@ -29,7 +29,7 @@ const LearnCharacter = (props: LearnCharacterProps) => {
       <h2 className="text-2xl font-semibold tracking-wide sm:text-3xl">
         {props.heading}
       </h2>
-      <span className="mb-4 text-sm tracking-wide sm:text-base">
+      <span className="mb-4 text-center text-sm tracking-wide sm:text-base">
         {props.subtitle}
       </span>
       <Button

@@ -3,30 +3,15 @@ import { Button } from "@nextui-org/button";
 import { Check, X } from "lucide-react";
 import { randomCorrectMessage, randomIncorrectMessage } from "@/utils/random";
 import clsx from "clsx";
+import { Result, ResultType, LessonStatus } from "@/types";
 
 export enum PrimaryButtonType {
   Check = "Check",
   Continue = "Continue",
 }
 
-export enum BottombarState {
-  Result = "Result",
-  Question = "Question",
-  Complete = "Complete",
-}
-
-export enum ResultType {
-  Correct = "Correct",
-  Incorrect = "Incorrect",
-}
-
-export interface Result {
-  type: ResultType;
-  answer?: string;
-}
-
 interface LessonBottombarProps {
-  state: BottombarState;
+  state: LessonStatus;
   result?: Result;
   showSecondaryButton?: boolean;
   onSecondaryClick?: () => void;
@@ -48,7 +33,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
   const [resultMessage, setResultMessage] = useState<string>("Loading");
 
   useEffect(() => {
-    if (state === BottombarState.Result) {
+    if (state === LessonStatus.Result) {
       setResultMessage(
         result?.type === ResultType.Correct
           ? randomCorrectMessage()
@@ -60,13 +45,15 @@ const LessonBottombar = (props: LessonBottombarProps) => {
 
   if (!isDomLoaded)
     return (
-      <div className="fixed bottom-0 h-36 w-full border-t border-border bg-foreground/[0.04] dark:bg-foreground/[0.015] md:h-32"></div>
+      <div className="fixed bottom-0 h-36 w-full border-t border-border bg-background md:h-32">
+        <div className="h-full w-full bg-foreground/[0.04] dark:bg-foreground/[0.015]" />
+      </div>
     );
 
   return (
     <div
       className={
-        "fixed bottom-0 h-36 w-full border-t border-border bg-background md:h-32"
+        "fixed bottom-0 h-fit min-h-[4rem] w-full border-t border-border bg-background md:h-32"
       }
     >
       <div
@@ -74,12 +61,12 @@ const LessonBottombar = (props: LessonBottombarProps) => {
           "h-full w-full bg-foreground/[0.04] dark:bg-foreground/[0.015]",
           {
             "bg-primary-500/10 dark:bg-primary-200/5":
-              state == BottombarState.Result &&
+              state == LessonStatus.Result &&
               result?.type === ResultType.Correct,
           },
           {
             "bg-danger-500/[0.15] dark:bg-danger-200/[0.06]":
-              state == BottombarState.Result &&
+              state == LessonStatus.Result &&
               result?.type === ResultType.Incorrect,
           },
         )}
@@ -87,7 +74,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
         <div className="mx-auto flex h-full max-w-5xl flex-col justify-between gap-4 px-6 py-4 md:flex-row md:items-center">
           {(() => {
             switch (state) {
-              case BottombarState.Result:
+              case LessonStatus.Result:
                 return (
                   <div className="flex items-center gap-4">
                     <div
@@ -133,13 +120,13 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                     </div>
                   </div>
                 );
-              case BottombarState.Question:
+              case LessonStatus.Question:
                 return showSecondaryButton ? (
                   <SecondaryButton label="Skip" onPress={onSecondaryClick} />
                 ) : (
                   <></>
                 );
-              case BottombarState.Complete:
+              case LessonStatus.Complete:
                 return showSecondaryButton ? (
                   <SecondaryButton
                     label="Review Lesson"
@@ -155,13 +142,13 @@ const LessonBottombar = (props: LessonBottombarProps) => {
 
           <PrimaryButton
             resultType={
-              state == BottombarState.Result
+              state == LessonStatus.Result
                 ? result?.type ?? ResultType.Correct
                 : ResultType.Correct
             }
             isDisabled={isPrimaryDisabled}
             label={
-              BottombarState.Complete
+              LessonStatus.Complete
                 ? PrimaryButtonType.Continue
                 : PrimaryButtonType.Check
             }
@@ -185,10 +172,10 @@ const SecondaryButton = ({
   return (
     <Button
       color="default"
-      variant="flat"
+      variant="bordered"
       onPress={onPress}
       size="lg"
-      className="w-full tracking-wide md:max-w-[150px]"
+      className="hidden w-full tracking-wide md:block md:max-w-[150px]"
     >
       {label}
     </Button>

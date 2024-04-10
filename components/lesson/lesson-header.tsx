@@ -29,7 +29,7 @@ const LessonHeader = (props: LessonHeaderProps) => {
   };
 
   return (
-    <div className="fixed top-0 w-full bg-gradient-to-b from-background from-60% via-background/90 via-80% py-4">
+    <div className="fixed top-0 z-30 w-full bg-gradient-to-b from-background from-60% via-background/90 via-80% py-4">
       <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 md:gap-4">
         <>
           <Button

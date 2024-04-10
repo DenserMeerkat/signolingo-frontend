@@ -32,7 +32,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     if (activePath == "learn" && search == "") {
-      router.push("learn?" + createQueryString("c", CharacterType.alphabets));
+      router.push("learn?" + createQueryString("c", CharacterType.Alphabets));
     }
     setIsDomLoaded(true);
   }, [activePath, search, router, createQueryString]);
@@ -51,14 +51,14 @@ export const Navbar = () => {
             <CharacterTile
               iconCharacters="Ab"
               label="Alphabets"
-              isSelected={search == CharacterType.alphabets}
-              href={"/learn?" + createQueryString("c", CharacterType.alphabets)}
+              isSelected={search == CharacterType.Alphabets}
+              href={"/learn?" + createQueryString("c", CharacterType.Alphabets)}
             />
             <CharacterTile
               iconCharacters="12"
               label="Numbers"
-              isSelected={search == CharacterType.numbers}
-              href={"/learn?" + createQueryString("c", CharacterType.numbers)}
+              isSelected={search == CharacterType.Numbers}
+              href={"/learn?" + createQueryString("c", CharacterType.Numbers)}
             />
             <MoreActionsTile />
           </div>
@@ -77,17 +77,17 @@ export const Navbar = () => {
               iconCharacters={isTablet ? "Ab" : "Abc"}
               label="Alphabets"
               isSelected={
-                activePath == "learn" && search == CharacterType.alphabets
+                activePath == "learn" && search == CharacterType.Alphabets
               }
-              href={"/learn?" + createQueryString("c", CharacterType.alphabets)}
+              href={"/learn?" + createQueryString("c", CharacterType.Alphabets)}
             />
             <CharacterTile
               iconCharacters={isTablet ? "12" : "123"}
               label="Numbers"
               isSelected={
-                activePath == "learn" && search == CharacterType.numbers
+                activePath == "learn" && search == CharacterType.Numbers
               }
-              href={"/learn?" + createQueryString("c", CharacterType.numbers)}
+              href={"/learn?" + createQueryString("c", CharacterType.Numbers)}
             />
             <ProfileTile
               isSelected={activePath === "profile"}
