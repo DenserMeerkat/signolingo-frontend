@@ -4,6 +4,7 @@ import { Check, X } from "lucide-react";
 import { randomCorrectMessage, randomIncorrectMessage } from "@/utils/random";
 import clsx from "clsx";
 import { Result, ResultType, LessonStatus, QuestionType } from "@/types";
+import CharacterSvg from "../learn/characters-svg";
 
 export enum PrimaryButtonType {
   Check = "Check",
@@ -102,19 +103,10 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                           </span>
                           <span className="text-base text-foreground">
                             The right answer is
-                            {result.questionType == QuestionType.McqCharacter
-                              ? " "
-                              : " option "}
                             {result?.questionType ===
-                            QuestionType.McqCharacter ? (
+                              QuestionType.McqCharacter && (
                               <span className="ml-1 font-semibold text-warning md:text-xl">
                                 &lsquo;{result?.answer}&rsquo;
-                              </span>
-                            ) : (
-                              <span className="ml-1 font-semibold text-warning md:text-xl">
-                                {result.optionIndex != undefined
-                                  ? result.optionIndex + 1
-                                  : null}
                               </span>
                             )}
                           </span>
@@ -130,6 +122,19 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                         </div>
                       )}
                     </div>
+                    {result?.type === ResultType.Incorrect &&
+                      result?.questionType == QuestionType.McqSign && (
+                        <div
+                          className="flex flex-col items-end space-y-1 rounded-lg border-2 border-warning-400 bg-background px-0.5 py-1.5
+                      text-warning-500 dark:border dark:border-warning-200 dark:text-warning-400"
+                        >
+                          <CharacterSvg
+                            character={result.answer!}
+                            size={48}
+                            className="w-10"
+                          />
+                        </div>
+                      )}
                   </div>
                 );
               case LessonStatus.Question:

@@ -9,9 +9,10 @@ import {
 } from "@/types";
 import { useLessonState } from "@/context/useLessonState";
 import QuestionView from "./questions/question-view";
+import { useSearchParams } from "next/navigation";
 
 const LessonQuestions = () => {
-  const questions: QuestionCharacter[] = [
+  const alphabetQuestions: QuestionCharacter[] = [
     {
       character: "A",
       questionType: QuestionType.McqSign,
@@ -33,6 +34,36 @@ const LessonQuestions = () => {
       options: ["D", "B", "A", "C"],
     },
   ];
+
+  const numberQuestions: QuestionCharacter[] = [
+    {
+      character: "1",
+      questionType: QuestionType.McqSign,
+      options: ["2", "3", "4", "1"],
+    },
+    {
+      character: "2",
+      questionType: QuestionType.McqCharacter,
+      options: ["4", "2", "3", "1"],
+    },
+    {
+      character: "3",
+      questionType: QuestionType.McqSign,
+      options: ["1", "2", "3", "4"],
+    },
+    {
+      character: "4",
+      questionType: QuestionType.McqCharacter,
+      options: ["4", "2", "1", "3"],
+    },
+  ];
+
+  const search = useSearchParams();
+
+  const questions =
+    search.get("c") === CharacterType.Alphabets
+      ? alphabetQuestions
+      : numberQuestions;
   const { state, handleValueChange, handlePrimaryClick } =
     useLessonState(questions);
 
