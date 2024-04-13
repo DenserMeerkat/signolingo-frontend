@@ -12,16 +12,16 @@ export interface LearnCharacterProps {
 }
 
 const LearnCharacter = (props: LearnCharacterProps) => {
-  const searchParams = useSearchParams();
+  const params = useSearchParams();
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+      const newParams = new URLSearchParams(params.toString());
+      newParams.set(name, value);
 
-      return params.toString();
+      return newParams.toString();
     },
-    [searchParams],
+    [params],
   );
 
   return (

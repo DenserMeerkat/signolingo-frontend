@@ -7,14 +7,15 @@ import CharacterTile from "./navbar/character";
 import ProfileTile from "./navbar/profile";
 import MoreActionsTile from "./navbar/more-actions";
 import { CharacterType } from "@/types";
+import { Button } from "@nextui-org/button";
 
 const showNavbarPaths = ["learn", "profile"];
 
 export const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const search = searchParams.get("c") || "";
+  const params = useSearchParams();
+  const search = params.get("c") || "";
   const activePath = pathname.split("/")[1];
 
   const [isDomLoaded, setIsDomLoaded] = useState(false);
@@ -24,12 +25,12 @@ export const Navbar = () => {
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+      const newParams = new URLSearchParams(params.toString());
+      newParams.set(name, value);
 
-      return params.toString();
+      return newParams.toString();
     },
-    [searchParams],
+    [params],
   );
 
   useEffect(() => {

@@ -1,14 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Input } from "@nextui-org/input";
-import { Form, useForm } from "react-hook-form";
-import { loginSchema } from "@/schema";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { ImGithub } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
+import { loginSchema } from "@/schema";
 
 const Login = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
@@ -27,32 +28,67 @@ const Login = () => {
   if (!isDomLoaded) return <></>;
 
   return (
-    <div className="grid min-h-screen w-full place-content-center">
+    <div className="min-h-screen w-full pt-4">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 px-4 py-6 sm:w-96"
+          className="mx-auto w-full max-w-sm space-y-4 px-4 py-6"
         >
           <h1 className="pb-4 text-center text-2xl font-medium tracking-wide dark:font-semibold">
             Log in
           </h1>
-          <div className="flex flex-col space-y-6">
-            <Input
-              color="secondary"
-              size="lg"
-              variant="faded"
-              type="text"
-              placeholder="Email or username"
-              required
+          <div className="flex flex-col space-y-5">
+            <FormField
+              control={form.control}
+              name="identifier"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      isClearable={true}
+                      color="secondary"
+                      size="lg"
+                      variant="faded"
+                      type="text"
+                      placeholder="Email or username"
+                      isInvalid={!!form.formState.errors.identifier}
+                      errorMessage={form.formState.errors.identifier?.message}
+                      onClear={() => field.onChange()}
+                      {...field}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
             />
-            <Input
-              color="secondary"
-              size="lg"
-              variant="faded"
-              type="password"
-              placeholder="Password"
-              endContent={<ForgotPassword />}
-              required
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      color="secondary"
+                      size="lg"
+                      variant="faded"
+                      type="password"
+                      placeholder="Password"
+                      endContent={<ForgotPassword />}
+                      isInvalid={!!form.formState.errors.password}
+                      errorMessage={form.formState.errors.password?.message}
+                      {...field}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      classNames={{
+                        input: [
+                          field.value && "text-2xl font-medium tracking-widest",
+                        ],
+                      }}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
             />
           </div>
           <div className="pt-4">

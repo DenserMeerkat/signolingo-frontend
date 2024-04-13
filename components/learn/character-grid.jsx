@@ -6,8 +6,8 @@ import LearnCharacter from "./learn-character";
 import { CharacterType } from "@/types";
 
 const CharacterGrid = () => {
-  const searchParams = useSearchParams();
-  const search = searchParams.get("c") || CharacterType.Alphabets;
+  const params = useSearchParams();
+  const search = params.get("c") || CharacterType.Alphabets;
 
   const [isDomLoaded, setIsDomLoaded] = useState(false);
   const arr = [0, 100, 23, 45, 89];

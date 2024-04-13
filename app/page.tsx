@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
-    router.push("/learn");
+    router.push("/learn?auth=login");
   }, [router]);
   return <main />;
 }
