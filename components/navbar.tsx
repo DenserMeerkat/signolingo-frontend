@@ -8,6 +8,8 @@ import ProfileTile from "./navbar/profile";
 import MoreActionsTile from "./navbar/more-actions";
 import { CharacterType } from "@/types";
 
+const showNavbarPaths = ["learn", "profile"];
+
 export const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -37,7 +39,7 @@ export const Navbar = () => {
     setIsDomLoaded(true);
   }, [activePath, search, router, createQueryString]);
 
-  if (!isDomLoaded || activePath == "lesson") return <></>;
+  if (!isDomLoaded || !showNavbarPaths.includes(activePath)) return <></>;
 
   if (isMobile) {
     return (
