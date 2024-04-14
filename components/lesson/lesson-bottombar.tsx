@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@nextui-org/button";
 import { Check, X } from "lucide-react";
-import { randomCorrectMessage, randomIncorrectMessage } from "@/utils/random";
+import { randomCorrectMessage, randomIncorrectMessage } from "@/lib/random";
 import clsx from "clsx";
 import { Result, ResultType, LessonStatus, QuestionType } from "@/types";
 import CharacterSvg from "../learn/characters-svg";

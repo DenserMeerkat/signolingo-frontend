@@ -112,7 +112,7 @@ const SignUp = () => {
                       color="secondary"
                       size="lg"
                       variant="faded"
-                      type="password"
+                      type={visible ? "text" : "password"}
                       placeholder="Password"
                       endContent={<VisibilityIndicator />}
                       isInvalid={!!form.formState.errors.password}
@@ -122,7 +122,9 @@ const SignUp = () => {
                       onChange={field.onChange}
                       classNames={{
                         input: [
-                          field.value && "text-2xl font-medium tracking-widest",
+                          field.value &&
+                            !visible &&
+                            "text-2xl font-medium tracking-widest",
                         ],
                       }}
                     />

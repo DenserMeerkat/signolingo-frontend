@@ -15,7 +15,7 @@ const CharacterCard = (props: CharacterCardProps) => {
   const isMobile = useMediaQuery("(max-width: 639px)");
   const { character, progress } = props;
 
-  const getColor = React.useCallback((progress: number) => {
+  const getColor = (progress: number) => {
     switch (progress) {
       case 0:
         return "default";
@@ -24,7 +24,7 @@ const CharacterCard = (props: CharacterCardProps) => {
       default:
         return "secondary";
     }
-  }, []);
+  };
 
   return (
     <Button

@@ -1,13 +1,16 @@
+import type { Config } from "tailwindcss";
 import { nextui } from "@nextui-org/theme";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+const config = {
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{ts,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
+  prefix: "",
   theme: {
     extend: {
       colors: {
@@ -50,10 +53,24 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
     },
   },
-  darkMode: "class",
   plugins: [
+    require("tailwindcss-animate"),
     nextui({
       themes: {
         light: {
@@ -69,7 +86,7 @@ module.exports = {
               700: "#209e30",
               800: "#148021",
               900: "#0b5e15",
-              950: "#053d0b",
+              // 950: "#053d0b",
               DEFAULT: "#39d450",
               foreground: "#052e19",
             },
@@ -84,7 +101,7 @@ module.exports = {
               700: "#35ab9b",
               800: "#228771",
               900: "#13664f",
-              950: "#08422d",
+              // 950: "#08422d",
               DEFAULT: "#60e2df",
               foreground: "#052e2d",
             },
@@ -99,7 +116,7 @@ module.exports = {
               700: "#c80d0d",
               800: "#a50f0f",
               900: "#881414",
-              950: "#4b0404",
+              // 950: "#4b0404",
               DEFAULT: "#ff4b4b",
               foreground: "#2d0f0f",
             },
@@ -119,7 +136,7 @@ module.exports = {
               700: "#0eab0e",
               800: "#0a8a0a",
               900: "#056605",
-              950: "#024202",
+              // 950: "#024202",
               DEFAULT: "#1ae61b",
               foreground: "#052e19",
             },
@@ -134,7 +151,7 @@ module.exports = {
               700: "#0eab96",
               800: "#0a8a6e",
               900: "#05664b",
-              950: "#02422b",
+              // 950: "#02422b",
               DEFAULT: "#1ae6e2",
               foreground: "#052e2d",
             },
@@ -149,7 +166,7 @@ module.exports = {
               700: "#c80d0d",
               800: "#a50f0f",
               900: "#881414",
-              950: "#4b0404",
+              // 950: "#4b0404",
               DEFAULT: "#ff4b4b",
               foreground: "#2d0f0f",
             },
@@ -159,4 +176,6 @@ module.exports = {
       },
     }),
   ],
-};
+} satisfies Config;
+
+export default config;

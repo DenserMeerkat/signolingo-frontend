@@ -5,7 +5,7 @@ import { Fredoka } from "next/font/google";
 import { Providers } from "./providers";
 import clsx from "clsx";
 import { Navbar } from "@/components/navbar";
-import AuthModal from "@/components/auth/auth-modal";
+import AuthDialog from "@/components/auth/auth-dialog";
 
 const fredoka = Fredoka({ subsets: ["latin"] });
 
@@ -41,7 +41,7 @@ export default function RootLayout({
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <main>
             <Navbar />
-            <AuthModal />
+            <AuthDialog />
             {children}
           </main>
         </Providers>
