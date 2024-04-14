@@ -1,5 +1,5 @@
 "use client";
 
-export default function Learn() {
+export default function Profile() {
   return <></>;
 }

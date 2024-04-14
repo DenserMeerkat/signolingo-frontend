@@ -10,15 +10,25 @@ import { Link } from "@nextui-org/link";
 import { ImGithub } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import { loginSchema } from "@/schema";
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+  useSignInWithGithub,
+} from "react-firebase-hooks/auth";
+import { auth } from "@/config/firebase";
 
 const Login = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
   });
 
   function onSubmit(data: z.infer<typeof loginSchema>) {
-    console.log(data);
+    signInWithEmailAndPassword(data.identifier, data.password);
   }
 
   useEffect(() => {
@@ -117,28 +127,35 @@ const Login = () => {
 
 export default Login;
 
-const GithubButton = () => {
+const GoogleButton = () => {
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
   return (
     <Button
       variant="bordered"
       fullWidth={true}
-      startContent={<ImGithub className="h-4 w-4" />}
+      startContent={!loading && <FcGoogle className="h-4 w-4" />}
+      onClick={() => signInWithGoogle()}
+      isLoading={loading}
       className="text-xs font-medium uppercase tracking-widest sm:text-sm"
     >
-      Github
+      Google
     </Button>
   );
 };
 
-const GoogleButton = () => {
+const GithubButton = () => {
+  const [signInWithGithub, user, loading, error] = useSignInWithGithub(auth);
   return (
     <Button
       variant="bordered"
       fullWidth={true}
-      startContent={<FcGoogle className="h-4 w-4" />}
+      startContent={!loading && <ImGithub className="h-4 w-4" />}
+      onClick={() => signInWithGithub()}
+      isLoading={loading}
       className="text-xs font-medium uppercase tracking-widest sm:text-sm"
     >
-      Google
+      Github
     </Button>
   );
 };

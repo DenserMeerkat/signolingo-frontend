@@ -5,6 +5,10 @@ import { useMediaQuery } from "@react-hook/media-query";
 import clsx from "clsx";
 import { UserCircle2 } from "lucide-react";
 import { ClassNameProp } from "@/types";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/config/firebase";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface ProfileTileProps extends ClassNameProp {
   isSelected: boolean;
@@ -12,7 +16,11 @@ interface ProfileTileProps extends ClassNameProp {
 }
 
 const ProfileTile = (props: ProfileTileProps) => {
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const [user] = useAuthState(auth);
   const { isSelected, href, className } = props;
+  const [hrefPath, setHrefPath] = useState<string>(href);
   const isMobile = useMediaQuery("(max-width: 639px)");
   const isTablet = useMediaQuery("(max-width: 1023px)");
 
@@ -30,9 +38,17 @@ const ProfileTile = (props: ProfileTileProps) => {
     );
   };
 
+  useEffect(() => {
+    if (!user) {
+      const newParams = new URLSearchParams(params);
+      newParams.set("auth", "login");
+      setHrefPath(pathname + "?" + newParams.toString());
+    }
+  }, [pathname, user, params]);
+
   return (
     <Button
-      href={href}
+      href={hrefPath}
       as={Link}
       isIconOnly={isTablet ? true : false}
       color="secondary"
