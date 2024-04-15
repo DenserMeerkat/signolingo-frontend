@@ -10,8 +10,15 @@ import { ImGithub } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import { signUpSchema } from "@/schema";
 import { Eye, EyeOff } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Link } from "@nextui-org/link";
 
 const SignUp = () => {
+  const params = useSearchParams();
+  const pathname = usePathname();
+  let loginParams = new URLSearchParams(params);
+  loginParams.set("auth", "login");
+  const loginHref = pathname + "?" + loginParams.toString();
   const [isDomLoaded, setIsDomLoaded] = useState(false);
   const [visible, setVisible] = useState(false);
   const form = useForm<z.infer<typeof signUpSchema>>({
@@ -44,7 +51,7 @@ const SignUp = () => {
   if (!isDomLoaded) return <></>;
 
   return (
-    <div className="min-h-screen w-full pt-4">
+    <div className="w-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -179,6 +186,15 @@ const SignUp = () => {
           <div className="flex space-x-4">
             <GithubButton />
             <GoogleButton />
+          </div>
+          <div className="flex justify-center gap-3 pt-10 font-semibold">
+            <span>Have an account? </span>
+            <Link
+              href={loginHref}
+              className="text-sm uppercase tracking-wider text-secondary"
+            >
+              Log In
+            </Link>
           </div>
         </form>
       </Form>

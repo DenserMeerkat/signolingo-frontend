@@ -7,7 +7,7 @@ import { UserCircle2 } from "lucide-react";
 import { ClassNameProp } from "@/types";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/config/firebase";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface ProfileTileProps extends ClassNameProp {
@@ -16,7 +16,6 @@ interface ProfileTileProps extends ClassNameProp {
 }
 
 const ProfileTile = (props: ProfileTileProps) => {
-  const pathname = usePathname();
   const params = useSearchParams();
   const [user] = useAuthState(auth);
   const { isSelected, href, className } = props;
@@ -42,9 +41,9 @@ const ProfileTile = (props: ProfileTileProps) => {
     if (!user) {
       const newParams = new URLSearchParams(params);
       newParams.set("auth", "login");
-      setHrefPath(pathname + "?" + newParams.toString());
+      setHrefPath("profile?" + newParams.toString());
     }
-  }, [pathname, user, params]);
+  }, [user, params]);
 
   return (
     <Button

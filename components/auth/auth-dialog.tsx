@@ -7,18 +7,14 @@ import { X } from "lucide-react";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import SignUp from "./sign-up";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/config/firebase";
 
 const validAuthTypes = ["login", "signup"];
 
 const AuthDialog = () => {
+  const [user] = useAuthState(auth);
   const params = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -28,13 +24,15 @@ const AuthDialog = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
 
   useEffect(() => {
-    console.log(currentAuthType);
+    if (user) {
+      handleClose();
+    }
     if (currentAuthType && validAuthTypes.includes(currentAuthType)) {
       setAuthType(currentAuthType);
       onOpen();
     }
     setIsDomLoaded(true);
-  }, [currentAuthType, onOpen]);
+  }, [user, currentAuthType, onOpen, handleClose]);
 
   function handleClose() {
     onClose();
@@ -65,9 +63,9 @@ const AuthDialog = () => {
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent
         hideCloseButton={true}
-        className="h-screen min-w-full rounded-none border-border p-2 outline-none"
+        className="h-screen min-w-full items-start overflow-y-auto border-border p-2 outline-none sm:rounded-none"
       >
-        <div className="flex w-full items-center justify-end p-2 sm:justify-between sm:p-4">
+        <DialogHeader className="sticky top-0 flex h-fit w-full flex-row items-center justify-end p-2 sm:justify-between sm:p-4">
           <Button
             isIconOnly={true}
             variant="light"
@@ -85,7 +83,7 @@ const AuthDialog = () => {
           >
             {authType === "login" ? <span>Sign Up</span> : <span>Log In</span>}
           </Button>
-        </div>
+        </DialogHeader>
         {authType === "login" ? <Login /> : <SignUp />}
       </DialogContent>
     </Dialog>

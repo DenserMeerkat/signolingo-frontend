@@ -7,7 +7,6 @@ import CharacterTile from "./navbar/character";
 import ProfileTile from "./navbar/profile";
 import MoreActionsTile from "./navbar/more-actions";
 import { CharacterType } from "@/types";
-import { Button } from "@nextui-org/button";
 
 const showNavbarPaths = ["learn", "profile"];
 
@@ -54,13 +53,17 @@ export const Navbar = () => {
             <CharacterTile
               iconCharacters="Ab"
               label="Alphabets"
-              isSelected={search == CharacterType.Alphabets}
+              isSelected={
+                activePath == "learn" && search == CharacterType.Alphabets
+              }
               href={"/learn?" + createQueryString("c", CharacterType.Alphabets)}
             />
             <CharacterTile
               iconCharacters="12"
               label="Numbers"
-              isSelected={search == CharacterType.Numbers}
+              isSelected={
+                activePath == "learn" && search == CharacterType.Numbers
+              }
               href={"/learn?" + createQueryString("c", CharacterType.Numbers)}
             />
             <MoreActionsTile />

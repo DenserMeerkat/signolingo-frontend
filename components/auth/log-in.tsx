@@ -11,14 +11,19 @@ import { ImGithub } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import { loginSchema } from "@/schema";
 import {
-  useAuthState,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
   useSignInWithGithub,
 } from "react-firebase-hooks/auth";
 import { auth } from "@/config/firebase";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const Login = () => {
+  const params = useSearchParams();
+  const pathname = usePathname();
+  let signUpParams = new URLSearchParams(params);
+  signUpParams.set("auth", "signup");
+  const signUpHref = pathname + "?" + signUpParams.toString();
   const [isDomLoaded, setIsDomLoaded] = useState(false);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
@@ -38,7 +43,7 @@ const Login = () => {
   if (!isDomLoaded) return <></>;
 
   return (
-    <div className="min-h-screen w-full pt-4">
+    <div className="w-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -118,6 +123,15 @@ const Login = () => {
           <div className="flex space-x-4">
             <GithubButton />
             <GoogleButton />
+          </div>
+          <div className="flex justify-center gap-3 pt-12 font-semibold">
+            <span>Don&apos;t have an account? </span>
+            <Link
+              href={signUpHref}
+              className="text-sm uppercase tracking-wider text-secondary"
+            >
+              Sign Up
+            </Link>
           </div>
         </form>
       </Form>
