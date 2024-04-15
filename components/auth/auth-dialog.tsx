@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDisclosure } from "@nextui-org/modal";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Login from "./log-in";
@@ -23,6 +23,14 @@ const AuthDialog = () => {
   const [authType, setAuthType] = useState<string | null>(currentAuthType);
   const [isDomLoaded, setIsDomLoaded] = useState(false);
 
+  const handleClose = useCallback(() => {
+    onClose();
+    const newParams = new URLSearchParams(params.toString());
+    newParams.delete("auth");
+    router.push(pathname + "?" + newParams.toString());
+    setAuthType(null);
+  }, [params, router, pathname, onClose]);
+
   useEffect(() => {
     if (user) {
       handleClose();
@@ -33,14 +41,6 @@ const AuthDialog = () => {
     }
     setIsDomLoaded(true);
   }, [user, currentAuthType, onOpen, handleClose]);
-
-  function handleClose() {
-    onClose();
-    const newParams = new URLSearchParams(params.toString());
-    newParams.delete("auth");
-    router.push(pathname + "?" + newParams.toString());
-    setAuthType(null);
-  }
 
   const handleAuthChange = () => {
     setAuthType((prev) => (prev === "login" ? "signup" : "login"));
