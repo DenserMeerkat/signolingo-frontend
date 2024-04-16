@@ -41,7 +41,7 @@ const SignUp = () => {
         variant="light"
         size="sm"
         onClick={() => setVisible(!visible)}
-        className="-mr-1.5"
+        className="-mr-1.5 text-secondary-700 dark:text-secondary"
       >
         {visible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
       </Button>
@@ -191,7 +191,7 @@ const SignUp = () => {
             <span>Have an account? </span>
             <Link
               href={loginHref}
-              className="text-sm uppercase tracking-wider text-secondary"
+              className="text-sm uppercase tracking-wider text-secondary-700 dark:text-secondary"
             >
               Log In
             </Link>

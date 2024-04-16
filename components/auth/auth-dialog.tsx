@@ -32,15 +32,12 @@ const AuthDialog = () => {
   }, [params, router, pathname, onClose]);
 
   useEffect(() => {
-    if (user) {
-      handleClose();
-    }
     if (currentAuthType && validAuthTypes.includes(currentAuthType)) {
       setAuthType(currentAuthType);
       onOpen();
     }
     setIsDomLoaded(true);
-  }, [user, currentAuthType, onOpen, handleClose]);
+  }, [currentAuthType, onOpen]);
 
   const handleAuthChange = () => {
     setAuthType((prev) => (prev === "login" ? "signup" : "login"));
@@ -63,9 +60,9 @@ const AuthDialog = () => {
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent
         hideCloseButton={true}
-        className="h-screen min-w-full items-start overflow-y-auto border-border p-2 outline-none sm:rounded-none"
+        className="h-[100svh] min-w-full items-start overflow-y-auto border-border p-0 outline-none sm:rounded-none pb-6"
       >
-        <DialogHeader className="sticky top-0 flex h-fit w-full flex-row items-center justify-end p-2 sm:justify-between sm:p-4">
+        <DialogHeader className="sticky z-50 bg-gradient-to-b from-background from-40% via-background/60 via-50% top-0 flex h-fit w-full flex-row items-center justify-end p-2 sm:justify-between sm:p-4">
           <Button
             isIconOnly={true}
             variant="light"

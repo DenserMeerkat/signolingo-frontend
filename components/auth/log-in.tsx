@@ -128,7 +128,7 @@ const Login = () => {
             <span>Don&apos;t have an account? </span>
             <Link
               href={signUpHref}
-              className="text-sm uppercase tracking-wider text-secondary"
+              className="text-sm uppercase tracking-wider text-secondary-700 dark:text-secondary"
             >
               Sign Up
             </Link>
