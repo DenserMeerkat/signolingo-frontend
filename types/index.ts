@@ -52,3 +52,7 @@ export interface CharacterQuestion {
   onValueChange?: (value: string) => void;
   resultType?: ResultType;
 }
+
+export interface Progress {
+    characters: Record<string, number>;
+}

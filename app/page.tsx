@@ -1,12 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { auth } from "@/config/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAppContext } from "@/context/app-context";
 
 export default function Home() {
   const router = useRouter();
-  const [user] = useAuthState(auth);
+  const { user } = useAppContext();
 
   useEffect(() => {
     const params = new URLSearchParams();

@@ -4,8 +4,11 @@ import { useSearchParams } from "next/navigation";
 import CharacterCard from "./character-card";
 import LearnCharacter from "./learn-character";
 import { CharacterType } from "@/types";
+import { useAppContext } from "@/context/app-context";
 
 const CharacterGrid = () => {
+  const {user, progress} = useAppContext();
+
   const params = useSearchParams();
   const search = params.get("c") || CharacterType.Alphabets;
 
@@ -19,6 +22,7 @@ const CharacterGrid = () => {
   if (!isDomLoaded) return <></>;
 
   if (search === CharacterType.Alphabets) {
+    console.log(progress);
     return (
       <div className="flex h-fit flex-col items-center justify-center gap-4 py-6 pb-28 sm:ml-[80px] md:py-8 lg:ml-[260px]">
         <LearnCharacter
@@ -32,7 +36,7 @@ const CharacterGrid = () => {
             <CharacterCard
               key={index}
               character={String.fromCharCode(65 + index)}
-              progress={arr[Math.floor(Math.random() * arr.length)]}
+              progress={progress.characters[String.fromCharCode(65 + index)]}
             />
           ))}
         </div>
@@ -52,7 +56,7 @@ const CharacterGrid = () => {
           <CharacterCard
             key={index}
             character={index.toString()}
-            progress={arr[Math.floor(Math.random() * arr.length)]}
+            progress={progress.characters[index.toString()]}
           />
         ))}
       </div>

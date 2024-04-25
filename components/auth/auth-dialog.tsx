@@ -8,13 +8,12 @@ import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import SignUp from "./sign-up";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/config/firebase";
+import { useAppContext } from "@/context/app-context";
 
 const validAuthTypes = ["login", "signup"];
 
 const AuthDialog = () => {
-  const [user] = useAuthState(auth);
+  const { user } = useAppContext();
   const params = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -60,9 +59,9 @@ const AuthDialog = () => {
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent
         hideCloseButton={true}
-        className="h-[100svh] min-w-full items-start overflow-y-auto border-border p-0 outline-none sm:rounded-none pb-6"
+        className="h-[100svh] min-w-full items-start overflow-y-auto border-border p-0 pb-6 outline-none sm:rounded-none"
       >
-        <DialogHeader className="sticky z-50 bg-gradient-to-b from-background from-40% via-background/60 via-50% top-0 flex h-fit w-full flex-row items-center justify-end p-2 sm:justify-between sm:p-4">
+        <DialogHeader className="sticky top-0 z-50 flex h-fit w-full flex-row items-center justify-end bg-gradient-to-b from-background from-40% via-background/60 via-50% p-2 sm:justify-between sm:p-4">
           <Button
             isIconOnly={true}
             variant="light"
