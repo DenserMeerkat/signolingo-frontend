@@ -7,13 +7,12 @@ import { CharacterType } from "@/types";
 import { useAppContext } from "@/context/app-context";
 
 const CharacterGrid = () => {
-  const {user, progress} = useAppContext();
+  const { appUser, progress } = useAppContext();
 
   const params = useSearchParams();
   const search = params.get("c") || CharacterType.Alphabets;
 
   const [isDomLoaded, setIsDomLoaded] = useState(false);
-  const arr = [0, 100, 23, 45, 89];
 
   useEffect(() => {
     setIsDomLoaded(true);
@@ -22,7 +21,6 @@ const CharacterGrid = () => {
   if (!isDomLoaded) return <></>;
 
   if (search === CharacterType.Alphabets) {
-    console.log(progress);
     return (
       <div className="flex h-fit flex-col items-center justify-center gap-4 py-6 pb-28 sm:ml-[80px] md:py-8 lg:ml-[260px]">
         <LearnCharacter

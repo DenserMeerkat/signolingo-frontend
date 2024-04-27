@@ -8,12 +8,13 @@ import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import SignUp from "./sign-up";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
-import { useAppContext } from "@/context/app-context";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/config/firebase";
 
 const validAuthTypes = ["login", "signup"];
 
 const AuthDialog = () => {
-  const { user } = useAppContext();
+  const [user] = useAuthState(auth);
   const params = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -31,12 +32,14 @@ const AuthDialog = () => {
   }, [params, router, pathname, onClose]);
 
   useEffect(() => {
-    if (currentAuthType && validAuthTypes.includes(currentAuthType)) {
+    if (!user && currentAuthType && validAuthTypes.includes(currentAuthType)) {
       setAuthType(currentAuthType);
       onOpen();
+    } else {
+      handleClose();
     }
     setIsDomLoaded(true);
-  }, [currentAuthType, onOpen]);
+  }, [user, currentAuthType, onOpen]);
 
   const handleAuthChange = () => {
     setAuthType((prev) => (prev === "login" ? "signup" : "login"));

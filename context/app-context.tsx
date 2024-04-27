@@ -1,83 +1,67 @@
 import React, {
-    createContext,
-    useContext,
-    useState,
-    ReactNode,
-    useEffect,
-  } from "react";
-  import { Progress } from "@/types";
-  import { User } from "firebase/auth";
-  import { useAuthState } from "react-firebase-hooks/auth";
-  import { auth } from "@/config/firebase";
-  
-  interface AppContextType {
-    user?: User | null;
-    progress: Progress;
-    updateProgress: () => void;
-  }
-  
-  const defaultProgress: Record<string, number> = {};
-  
-  for (let i = 0; i < 26; i++) {
-    defaultProgress[String.fromCharCode(65 + i)] = 0;
-  }
-  for (let i = 0; i < 10; i++) {
-    defaultProgress[i.toString()] = 0;
-  }
-  
-  const defaultAppContext: AppContextType = {
-    user: undefined,
-    progress: {
-      characters: defaultProgress,
-    },
-    updateProgress: () => {},
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { Progress } from "@/types";
+import { User } from "firebase/auth";
+import { getDefaultProgress } from "@/lib/auth-utils";
+
+interface AppContextType {
+  appUser?: User | null;
+  progress: Progress;
+  updateAppUser: (user: User | null) => void;
+  updateProgress: (progress: Progress) => void;
+}
+
+const defaultProgress: Progress = getDefaultProgress();
+const defaultAppContext: AppContextType = {
+  appUser: undefined,
+  progress: defaultProgress,
+  updateAppUser: () => {},
+  updateProgress: () => {},
+};
+const AppContext = createContext<AppContextType>(defaultAppContext);
+
+interface AppContextProviderProps {
+  children: ReactNode;
+}
+
+export const AppContextProvider: React.FC<AppContextProviderProps> = ({
+  children,
+}) => {
+  const [appUser, setAppUser] = useState<User | null>(null);
+  const [progress, setProgress] = useState(defaultProgress);
+
+  const state: AppContextType = {
+    appUser: appUser,
+    progress: progress,
+    updateAppUser: setAppUser,
+    updateProgress: setProgress,
   };
-  const AppContext = createContext<AppContextType>(defaultAppContext);
-  
-  interface AppContextProviderProps {
-    children: ReactNode;
-  }
-  
-  export const AppContextProvider: React.FC<AppContextProviderProps> = ({
-    children,
-  }) => {
-    const [user] = useAuthState(auth);
-    const [progress, setProgress] = useState({
-      characters: defaultProgress,
-    });
-  
-    const updateProgress = () => {
-      setProgress({
-        characters: defaultProgress,
-      });
-    };
-  
-    const state: AppContextType = {
-      user: user,
-      progress: progress,
-      updateProgress: updateProgress,
-    };
-  
-    useEffect(() => {
-      const storedState = localStorage.getItem("appState");
-      if (storedState) {
-        const parsedState = JSON.parse(storedState);
-      }
-    }, []);
-  
-    useEffect(() => {
-      const stateToStore = JSON.stringify({});
-      localStorage.setItem("appState", stateToStore);
-    }, []);
-  
-    return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
-  };
-  
-  export const useAppContext = () => {
-    const context = useContext(AppContext);
-    if (!context) {
-      throw new Error("useAppContext must be used within AppContextProvider");
+
+  useEffect(() => {
+    const storedState = localStorage.getItem("appState");
+    if (storedState) {
+      const parsedState = JSON.parse(storedState);
+      setProgress(parsedState.progress);
     }
-    return context;
-  };
-  
+  }, []);
+
+  useEffect(() => {
+    const stateToStore = JSON.stringify({ appUser, progress });
+    localStorage.setItem("appState", stateToStore);
+  }, []);
+
+  return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
+};
+
+export const useAppContext = () => {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useAppContext must be used within AppContextProvider");
+  }
+  return context;
+};

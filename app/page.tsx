@@ -2,10 +2,12 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/context/app-context";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/config/firebase";
 
 export default function Home() {
   const router = useRouter();
-  const { user } = useAppContext();
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     const params = new URLSearchParams();

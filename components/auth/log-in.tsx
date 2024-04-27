@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { Input } from "@nextui-org/input";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -17,8 +17,11 @@ import {
 } from "react-firebase-hooks/auth";
 import { auth } from "@/config/firebase";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useAppContext } from "@/context/app-context";
+import { getEmailFromIdentifier, getUserProgress } from "@/lib/auth-utils";
 
 const Login = () => {
+  const { updateAppUser, updateProgress } = useAppContext();
   const params = useSearchParams();
   const pathname = usePathname();
   let signUpParams = new URLSearchParams(params);
@@ -32,8 +35,22 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  function onSubmit(data: z.infer<typeof loginSchema>) {
-    signInWithEmailAndPassword(data.identifier, data.password);
+  async function onSubmit(data: z.infer<typeof loginSchema>) {
+    const email = await getEmailFromIdentifier(data.identifier);
+    if (!email) {
+      //TODO: Show error
+      return;
+    }
+    const userCredential = await signInWithEmailAndPassword(
+      email,
+      data.password,
+    );
+    console.log(userCredential);
+    if (userCredential) {
+      updateAppUser(userCredential.user);
+      const progress = await getUserProgress(userCredential.user.uid);
+      if (progress) updateProgress(progress);
+    }
   }
 
   useEffect(() => {
@@ -142,14 +159,19 @@ const Login = () => {
 export default Login;
 
 const GoogleButton = () => {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const { appUser, progress } = useAppContext();
+  const [signInWithGoogle, user_, loading, error] = useSignInWithGoogle(auth);
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle();
+  };
 
   return (
     <Button
       variant="bordered"
       fullWidth={true}
       startContent={!loading && <FcGoogle className="h-4 w-4" />}
-      onClick={() => signInWithGoogle()}
+      onClick={handleGoogleSignIn}
       isLoading={loading}
       className="text-xs font-medium uppercase tracking-widest sm:text-sm"
     >
@@ -160,6 +182,11 @@ const GoogleButton = () => {
 
 const GithubButton = () => {
   const [signInWithGithub, user, loading, error] = useSignInWithGithub(auth);
+
+  const handleGithubSignIn = () => {
+    signInWithGithub();
+  };
+
   return (
     <Button
       variant="bordered"

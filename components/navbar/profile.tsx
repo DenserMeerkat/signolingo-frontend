@@ -16,7 +16,7 @@ interface ProfileTileProps extends ClassNameProp {
 
 const ProfileTile = (props: ProfileTileProps) => {
   const params = useSearchParams();
-  const { user } = useAppContext();
+  const { appUser } = useAppContext();
   const { isSelected, href, className } = props;
   const [hrefPath, setHrefPath] = useState<string>(href);
   const isMobile = useMediaQuery("(max-width: 639px)");
@@ -35,14 +35,6 @@ const ProfileTile = (props: ProfileTileProps) => {
       </div>
     );
   };
-
-  useEffect(() => {
-    if (!user) {
-      const newParams = new URLSearchParams(params);
-      newParams.set("auth", "login");
-      setHrefPath("profile?" + newParams.toString());
-    }
-  }, [user, params]);
 
   return (
     <Button

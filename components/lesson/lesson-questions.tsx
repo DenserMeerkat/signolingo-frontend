@@ -15,7 +15,7 @@ import { useAppContext } from "@/context/app-context";
 import { useMemo } from "react";
 
 const LessonQuestions = () => {
-  const { user, progress } = useAppContext();
+  const { appUser, progress } = useAppContext();
   const alphabetQuestions: QuestionCharacter[] = useMemo(() => {
     return getLesson(progress.characters, CharacterType.Alphabets).filter(
       (q: QuestionCharacter) =>
@@ -23,28 +23,6 @@ const LessonQuestions = () => {
         q.questionType == QuestionType.McqSign,
     );
   }, [progress]);
-  // [
-  //   {
-  //     character: "A",
-  //     questionType: QuestionType.McqSign,
-  //     options: ["B", "C", "D", "A"],
-  //   },
-  //   {
-  //     character: "B",
-  //     questionType: QuestionType.McqCharacter,
-  //     options: ["D", "B", "C", "A"],
-  //   },
-  //   {
-  //     character: "C",
-  //     questionType: QuestionType.McqSign,
-  //     options: ["A", "B", "C", "D"],
-  //   },
-  //   {
-  //     character: "D",
-  //     questionType: QuestionType.McqCharacter,
-  //     options: ["D", "B", "A", "C"],
-  //   },
-  // ];
 
   const numberQuestions: QuestionCharacter[] = useMemo(() => {
     return getLesson(progress.characters, CharacterType.Numbers).filter(
@@ -53,29 +31,6 @@ const LessonQuestions = () => {
         q.questionType == QuestionType.McqSign,
     );
   }, [progress]);
-
-  // [
-  //   {
-  //     character: "1",
-  //     questionType: QuestionType.McqSign,
-  //     options: ["2", "3", "4", "1"],
-  //   },
-  //   {
-  //     character: "2",
-  //     questionType: QuestionType.McqCharacter,
-  //     options: ["4", "2", "3", "1"],
-  //   },
-  //   {
-  //     character: "3",
-  //     questionType: QuestionType.McqSign,
-  //     options: ["1", "2", "3", "4"],
-  //   },
-  //   {
-  //     character: "4",
-  //     questionType: QuestionType.McqCharacter,
-  //     options: ["4", "2", "1", "3"],
-  //   },
-  // ];
 
   const search = useSearchParams();
 

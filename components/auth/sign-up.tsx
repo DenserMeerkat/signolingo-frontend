@@ -9,11 +9,21 @@ import { Button } from "@nextui-org/button";
 import { ImGithub } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import { signUpSchema } from "@/schema";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+  useSignInWithGithub,
+} from "react-firebase-hooks/auth";
+import { auth } from "@/config/firebase";
+import { createUserDocument } from "@/lib/auth-utils";
 import { Eye, EyeOff } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Link } from "@nextui-org/link";
+import { useAppContext } from "@/context/app-context";
+import { cn } from "@/lib/utils";
 
 const SignUp = () => {
+  const { appUser, updateAppUser } = useAppContext();
   const params = useSearchParams();
   const pathname = usePathname();
   let loginParams = new URLSearchParams(params);
@@ -25,8 +35,18 @@ const SignUp = () => {
     resolver: zodResolver(signUpSchema),
   });
 
-  function onSubmit(data: z.infer<typeof signUpSchema>) {
-    console.log(data);
+  const [signUpWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  async function onSubmit(data: z.infer<typeof signUpSchema>) {
+    const userCredential = await signUpWithEmailAndPassword(
+      data.email,
+      data.password,
+    );
+    if (userCredential) {
+      createUserDocument(userCredential.user.uid, data.username, data.email);
+      updateAppUser(userCredential.user);
+    }
   }
 
   useEffect(() => {
@@ -51,7 +71,7 @@ const SignUp = () => {
   if (!isDomLoaded) return <></>;
 
   return (
-    <div className="w-full">
+    <div className={cn("w-full", { "pointer-events-none": loading })}>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
