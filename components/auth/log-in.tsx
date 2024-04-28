@@ -18,10 +18,10 @@ import {
 import { auth } from "@/config/firebase";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useAppContext } from "@/context/app-context";
-import { getEmailFromIdentifier, getUserProgress } from "@/lib/auth-utils";
+import { getEmailFromIdentifier, getUserData } from "@/lib/auth-utils";
 
 const Login = () => {
-  const { updateAppUser, updateProgress } = useAppContext();
+  const { updateAppUser, updateUserData } = useAppContext();
   const params = useSearchParams();
   const pathname = usePathname();
   let signUpParams = new URLSearchParams(params);
@@ -48,8 +48,8 @@ const Login = () => {
     console.log(userCredential);
     if (userCredential) {
       updateAppUser(userCredential.user);
-      const progress = await getUserProgress(userCredential.user.uid);
-      if (progress) updateProgress(progress);
+      const userData = await getUserData(userCredential.user.uid);
+      if (userData) updateUserData(userData);
     }
   }
 
@@ -159,7 +159,7 @@ const Login = () => {
 export default Login;
 
 const GoogleButton = () => {
-  const { appUser, progress } = useAppContext();
+  const { appUser, userData } = useAppContext();
   const [signInWithGoogle, user_, loading, error] = useSignInWithGoogle(auth);
 
   const handleGoogleSignIn = () => {

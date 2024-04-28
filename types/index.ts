@@ -53,6 +53,7 @@ export interface CharacterQuestion {
   resultType?: ResultType;
 }
 
-export interface Progress {
-    characters: Record<string, number>;
+export interface UserData {
+  characters: Record<string, number>;
+  avatar: string;
 }

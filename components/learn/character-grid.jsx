@@ -7,7 +7,7 @@ import { CharacterType } from "@/types";
 import { useAppContext } from "@/context/app-context";
 
 const CharacterGrid = () => {
-  const { appUser, progress } = useAppContext();
+  const { appUser, userData } = useAppContext();
 
   const params = useSearchParams();
   const search = params.get("c") || CharacterType.Alphabets;
@@ -34,7 +34,7 @@ const CharacterGrid = () => {
             <CharacterCard
               key={index}
               character={String.fromCharCode(65 + index)}
-              progress={progress.characters[String.fromCharCode(65 + index)]}
+              progress={userData.characters[String.fromCharCode(65 + index)]}
             />
           ))}
         </div>
@@ -54,7 +54,7 @@ const CharacterGrid = () => {
           <CharacterCard
             key={index}
             character={index.toString()}
-            progress={progress.characters[index.toString()]}
+            progress={userData.characters[index.toString()]}
           />
         ))}
       </div>

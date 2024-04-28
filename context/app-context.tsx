@@ -5,23 +5,23 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { Progress } from "@/types";
+import { UserData } from "@/types";
 import { User } from "firebase/auth";
 import { getDefaultProgress } from "@/lib/auth-utils";
 
 interface AppContextType {
   appUser?: User | null;
-  progress: Progress;
+  userData: UserData;
   updateAppUser: (user: User | null) => void;
-  updateProgress: (progress: Progress) => void;
+  updateUserData: (userData: UserData) => void;
 }
 
-const defaultProgress: Progress = getDefaultProgress();
+const defaultProgress: Record<string, number> = getDefaultProgress();
 const defaultAppContext: AppContextType = {
   appUser: undefined,
-  progress: defaultProgress,
+  userData: { characters: defaultProgress, avatar: "" },
   updateAppUser: () => {},
-  updateProgress: () => {},
+  updateUserData: () => {},
 };
 const AppContext = createContext<AppContextType>(defaultAppContext);
 
@@ -33,25 +33,28 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }) => {
   const [appUser, setAppUser] = useState<User | null>(null);
-  const [progress, setProgress] = useState(defaultProgress);
+  const [userData, setUserData] = useState<UserData>({
+    characters: defaultProgress,
+    avatar: "",
+  });
 
   const state: AppContextType = {
     appUser: appUser,
-    progress: progress,
+    userData: { characters: defaultProgress, avatar: "" },
     updateAppUser: setAppUser,
-    updateProgress: setProgress,
+    updateUserData: setUserData,
   };
 
   useEffect(() => {
     const storedState = localStorage.getItem("appState");
     if (storedState) {
       const parsedState = JSON.parse(storedState);
-      setProgress(parsedState.progress);
+      setUserData(parsedState.userData);
     }
   }, []);
 
   useEffect(() => {
-    const stateToStore = JSON.stringify({ appUser, progress });
+    const stateToStore = JSON.stringify({ appUser, userData });
     localStorage.setItem("appState", stateToStore);
   }, []);
 

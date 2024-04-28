@@ -15,22 +15,22 @@ import { useAppContext } from "@/context/app-context";
 import { useMemo } from "react";
 
 const LessonQuestions = () => {
-  const { appUser, progress } = useAppContext();
+  const { appUser, userData } = useAppContext();
   const alphabetQuestions: QuestionCharacter[] = useMemo(() => {
-    return getLesson(progress.characters, CharacterType.Alphabets).filter(
+    return getLesson(userData.characters, CharacterType.Alphabets).filter(
       (q: QuestionCharacter) =>
         q.questionType == QuestionType.McqCharacter ||
         q.questionType == QuestionType.McqSign,
     );
-  }, [progress]);
+  }, [userData]);
 
   const numberQuestions: QuestionCharacter[] = useMemo(() => {
-    return getLesson(progress.characters, CharacterType.Numbers).filter(
+    return getLesson(userData.characters, CharacterType.Numbers).filter(
       (q: QuestionCharacter) =>
         q.questionType == QuestionType.McqCharacter ||
         q.questionType == QuestionType.McqSign,
     );
-  }, [progress]);
+  }, [userData]);
 
   const search = useSearchParams();
 

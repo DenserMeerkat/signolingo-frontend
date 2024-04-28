@@ -1,5 +1,5 @@
 import { db } from "@/config/firebase";
-import { Progress } from "@/types";
+import { UserData } from "@/types";
 import {
   doc,
   getDoc,
@@ -27,12 +27,14 @@ export const getEmailFromIdentifier = async (identifier: string) => {
   }
 };
 
-export const getUserProgress = async (uid: string) => {
+export const getUserData = async (uid: string) => {
   const userDocRef = doc(db, "users", uid);
   const userDocSnap = await getDoc(userDocRef);
 
   if (userDocSnap.exists()) {
-    return userDocSnap.data().progress as Progress;
+    const progress = userDocSnap.data().progress as Record<string, number>;
+    const avatar = userDocSnap.data().avatar as string;
+    return { characters: progress, avatar } as UserData;
   } else {
     console.log(`No user found with uid ${uid}.`);
     return null;
@@ -58,7 +60,7 @@ export const createUserDocument = async (
   }
 };
 
-export const getDefaultProgress = (): Progress => {
+export const getDefaultProgress = (): Record<string, number> => {
   const defaultCharacterProgress: Record<string, number> = {};
 
   for (let i = 0; i < 26; i++) {
@@ -68,7 +70,5 @@ export const getDefaultProgress = (): Progress => {
     defaultCharacterProgress[i.toString()] = 0;
   }
 
-  return {
-    characters: defaultCharacterProgress,
-  } as Progress;
+  return defaultCharacterProgress;
 };
