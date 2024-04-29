@@ -39,7 +39,7 @@ const AuthDialog = () => {
       handleClose();
     }
     setIsDomLoaded(true);
-  }, [user, currentAuthType, onOpen]);
+  }, [user, currentAuthType, onOpen, handleClose]);
 
   const handleAuthChange = () => {
     setAuthType((prev) => (prev === "login" ? "signup" : "login"));

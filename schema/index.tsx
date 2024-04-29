@@ -38,3 +38,8 @@ export const signUpSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const profileSchema = z.object({
+  username: z.string().min(6, "Min. 6 characters"),
+  avatar: z.string(),
+});

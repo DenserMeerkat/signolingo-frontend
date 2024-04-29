@@ -17,9 +17,14 @@ interface AppContextType {
 }
 
 const defaultProgress: Record<string, number> = getDefaultProgress();
+
 const defaultAppContext: AppContextType = {
   appUser: undefined,
-  userData: { characters: defaultProgress, avatar: "" },
+  userData: {
+    characters: defaultProgress,
+    avatar: "ReliableRhinoceros",
+    userName: "Guest",
+  },
   updateAppUser: () => {},
   updateUserData: () => {},
 };
@@ -35,12 +40,13 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   const [appUser, setAppUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData>({
     characters: defaultProgress,
-    avatar: "",
+    avatar: "ReliableRhinoceros",
+    userName: "Guest",
   });
 
   const state: AppContextType = {
     appUser: appUser,
-    userData: { characters: defaultProgress, avatar: "" },
+    userData: userData,
     updateAppUser: setAppUser,
     updateUserData: setUserData,
   };

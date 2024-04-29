@@ -56,4 +56,5 @@ export interface CharacterQuestion {
 export interface UserData {
   characters: Record<string, number>;
   avatar: string;
+  userName: string;
 }
