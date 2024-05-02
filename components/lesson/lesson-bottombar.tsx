@@ -15,6 +15,7 @@ interface LessonBottombarProps {
   state: LessonStatus;
   result?: Result;
   showSecondaryButton?: boolean;
+  showResult?: boolean;
   onSecondaryClick?: () => void;
   isPrimaryDisabled: boolean;
   onPrimaryClick: () => void;
@@ -25,6 +26,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
     state,
     result,
     showSecondaryButton = true,
+    showResult = true,
     onSecondaryClick = () => {},
     isPrimaryDisabled,
     onPrimaryClick,
@@ -76,72 +78,75 @@ const LessonBottombar = (props: LessonBottombarProps) => {
           {(() => {
             switch (state) {
               case LessonStatus.Result:
-                return (
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={
-                        "hidden h-12 w-12 place-content-center rounded-3xl bg-foreground/[0.05] min-[450px]:grid md:h-16 md:w-16"
-                      }
-                    >
-                      {result?.type === ResultType.Incorrect ? (
-                        <X
-                          strokeWidth={5}
-                          className="text-danger-500 md:h-8 md:w-8"
-                        />
-                      ) : (
-                        <Check
-                          strokeWidth={6}
-                          className="text-primary-500 md:h-8 md:w-8"
-                        />
-                      )}
-                    </div>
-                    <div>
-                      {result?.type === ResultType.Incorrect ? (
-                        <div className="flex flex-col text-danger-500">
-                          <span className="text-xl font-semibold tracking-wider md:text-2xl">
-                            {resultMessage}
-                          </span>
-                          <span className="text-base text-foreground">
-                            The right answer is
-                            {result?.questionType ===
-                              QuestionType.McqCharacter && (
-                              <span className="ml-1 font-semibold text-warning md:text-xl">
-                                &lsquo;{result?.answer}&rsquo;
-                              </span>
-                            )}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col text-primary">
-                          <span className="text-xl font-semibold tracking-wider md:text-2xl">
-                            {resultMessage}
-                          </span>
-                          <span className="flex text-base text-foreground">
-                            You&apos;re on fire with your answers!
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    {result?.type === ResultType.Incorrect &&
-                      result?.questionType == QuestionType.McqSign && (
-                        <div
-                          className="flex flex-col items-end space-y-1 rounded-lg border-2 border-warning-400 bg-background px-0.5 py-1.5
-                      text-warning-500 dark:border dark:border-warning-200 dark:text-warning-400"
-                        >
-                          <CharacterSvg
-                            character={result.answer!}
-                            size={48}
-                            className="w-10"
+                if (showResult)
+                  return (
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={
+                          "hidden h-12 w-12 place-content-center rounded-3xl bg-foreground/[0.05] min-[450px]:grid md:h-16 md:w-16"
+                        }
+                      >
+                        {result?.type === ResultType.Incorrect ? (
+                          <X
+                            strokeWidth={5}
+                            className="text-danger-500 md:h-8 md:w-8"
                           />
-                        </div>
-                      )}
-                  </div>
-                );
+                        ) : (
+                          <Check
+                            strokeWidth={6}
+                            className="text-primary-500 md:h-8 md:w-8"
+                          />
+                        )}
+                      </div>
+                      <div>
+                        {result?.type === ResultType.Incorrect ? (
+                          <div className="flex flex-col text-danger-500">
+                            <span className="text-xl font-semibold tracking-wider md:text-2xl">
+                              {resultMessage}
+                            </span>
+                            <span className="text-base text-foreground">
+                              The right answer is
+                              {result?.questionType ===
+                                QuestionType.McqCharacter && (
+                                <span className="ml-1 font-semibold text-warning md:text-xl">
+                                  &lsquo;{result?.answer}&rsquo;
+                                </span>
+                              )}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col text-primary">
+                            <span className="text-xl font-semibold tracking-wider md:text-2xl">
+                              {resultMessage}
+                            </span>
+                            <span className="flex text-base text-foreground">
+                              You&apos;re on fire with your answers!
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      {result?.type === ResultType.Incorrect &&
+                        result?.questionType == QuestionType.McqSign && (
+                          <div
+                            className="flex flex-col items-end space-y-1 rounded-lg border-2 border-warning-400 bg-background px-0.5 py-1.5
+                      text-warning-500 dark:border dark:border-warning-200 dark:text-warning-400"
+                          >
+                            <CharacterSvg
+                              character={result.answer!}
+                              size={48}
+                              className="w-10"
+                            />
+                          </div>
+                        )}
+                    </div>
+                  );
+                else return <div></div>;
+
               case LessonStatus.Question:
                 return showSecondaryButton ? (
                   <SecondaryButton label="Skip" onPress={onSecondaryClick} />
                 ) : (
-                  <></>
+                  <div></div>
                 );
               case LessonStatus.Complete:
                 return showSecondaryButton ? (
@@ -150,7 +155,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                     onPress={onSecondaryClick}
                   />
                 ) : (
-                  <></>
+                  <div></div>
                 );
               default:
                 return <></>;

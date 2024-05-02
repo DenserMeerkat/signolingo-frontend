@@ -2,6 +2,7 @@ import { CharacterQuestion, QuestionType } from "@/types";
 import React from "react";
 import MCQCharacter from "./mcq-character";
 import MCQSign from "./mcq-sign";
+import Introduction from "./character-intro";
 
 export interface QuestionViewProps extends CharacterQuestion {
   questionType: QuestionType;
@@ -25,6 +26,17 @@ const QuestionView = (porps: QuestionViewProps) => {
     case QuestionType.McqSign:
       return (
         <MCQSign
+          character={character}
+          options={options}
+          resultType={resultType}
+          type={type}
+          value={value}
+          onValueChange={onValueChange}
+        />
+      );
+    case QuestionType.Introduction:
+      return (
+        <Introduction
           character={character}
           options={options}
           resultType={resultType}
