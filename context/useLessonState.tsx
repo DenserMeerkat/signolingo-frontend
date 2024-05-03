@@ -57,7 +57,7 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
     progress: 0,
     state: LessonStatus.Result,
     result: undefined,
-    isPrimaryDisabled: false,
+    isPrimaryDisabled: true,
     showSecondaryButton: false,
     showResult: false,
     currentIndex: 0,

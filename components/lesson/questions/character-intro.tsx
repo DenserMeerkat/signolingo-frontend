@@ -4,34 +4,29 @@ import clsx from "clsx";
 import { Progress } from "@nextui-org/progress";
 
 const Introduction = (porps: CharacterQuestion) => {
+  const [isDomLoaded, setIsDomLoaded] = useState(false);
   const [timer, setTimer] = useState(0);
   const { character, options, resultType, type, value, onValueChange } = porps;
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout | undefined;
-
-    intervalId = setInterval(() => {
-      setTimer((prevTimer) => prevTimer + 1);
+    setIsDomLoaded(true);
+    const interval = setInterval(() => {
+      if (timer == 2000 && onValueChange) {
+        onValueChange(character);
+      } else {
+        setTimer((prev) => prev + 1);
+      }
     }, 1);
 
-    const timeoutId = setTimeout(() => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-      if (onValueChange) onValueChange(character);
-    }, 2001);
-
     return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-      clearTimeout(timeoutId);
+      clearInterval(interval);
     };
   });
 
+  if (!isDomLoaded) return <></>;
+
   return (
     <div
-      key={character}
       className={clsx("min-h-96 mx-auto h-fit max-w-3xl px-4 pb-32 pt-10", {
         "pointer-events-none": resultType != undefined,
       })}
@@ -55,12 +50,12 @@ const Introduction = (porps: CharacterQuestion) => {
             loop
           ></video>
           <Progress
-            color={"warning"}
+            color={timer >= 2000 ? "primary" : "warning"}
             aria-label="Loading..."
             value={timer}
             maxValue={2000}
             className={
-              "absolute bottom-0 z-10 h-1.5 w-full px-2 sm:h-2 md:h-2.5"
+              "absolute bottom-0 z-10  h-2 w-full rounded-none px-0 md:h-2.5"
             }
           />
         </div>

@@ -15,6 +15,7 @@ const QuestionView = (porps: QuestionViewProps) => {
     case QuestionType.McqCharacter:
       return (
         <MCQCharacter
+          key={character}
           character={character}
           options={options}
           resultType={resultType}
@@ -26,6 +27,7 @@ const QuestionView = (porps: QuestionViewProps) => {
     case QuestionType.McqSign:
       return (
         <MCQSign
+          key={character}
           character={character}
           options={options}
           resultType={resultType}
@@ -37,6 +39,7 @@ const QuestionView = (porps: QuestionViewProps) => {
     case QuestionType.Introduction:
       return (
         <Introduction
+          key={character}
           character={character}
           options={options}
           resultType={resultType}

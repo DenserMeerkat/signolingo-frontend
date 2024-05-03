@@ -43,7 +43,7 @@ const SignCapture = ({ onFrame }: SignCaptureProps) => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [captureFrames, onFrame]);
 
   return (
     <div>

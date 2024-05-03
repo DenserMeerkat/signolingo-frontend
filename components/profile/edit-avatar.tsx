@@ -38,26 +38,27 @@ export default function EditAvatar({ value, onChange }: EditAvatarProps) {
         onOpenChange={onOpenChange}
         size={"2xl"}
         scrollBehavior="inside"
+        className="border-2 border-border bg-background"
       >
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Edit Avatar
+                <span>Edit Avatar</span>
                 {avatar != value && (
-                  <div className="flex flex-wrap justify-end gap-x-6 text-xs tracking-widest sm:text-sm">
-                    <div className="flex w-32 items-center gap-3 text-warning-900 dark:text-warning-500 sm:w-36">
+                  <div className="flex flex-wrap justify-end gap-x-3 pt-1 text-xs tracking-widest sm:text-sm md:pt-0">
+                    <div className="flex w-[7.85rem] items-center gap-3 text-warning-900 dark:text-warning-500 sm:w-36">
                       <div className="h-2 w-2 rounded-full bg-warning-500"></div>
                       <span>Current Avatar</span>
                     </div>
-                    <div className="flex w-32 items-center gap-3 text-secondary-900 dark:text-secondary-500 sm:w-36">
+                    <div className="flex w-[7.85rem] items-center gap-3 text-secondary-900 dark:text-secondary-500 sm:w-36">
                       <div className="h-2 w-2 rounded-full bg-secondary-500"></div>
                       <span>Selected Avatar</span>
                     </div>
                   </div>
                 )}
               </ModalHeader>
-              <ModalBody className="px-2 pb-6">
+              <ModalBody className="px-2 pb-2">
                 <div className="flex flex-row flex-wrap items-center justify-center gap-2 sm:gap-4">
                   {avatars.map((avatarName) => (
                     <Button
@@ -102,7 +103,7 @@ export default function EditAvatar({ value, onChange }: EditAvatarProps) {
                 </div>
               </ModalBody>
               {avatar != value && (
-                <ModalFooter className="pt-2">
+                <ModalFooter className="pt-4">
                   <Button color="danger" variant="light" onPress={onClose}>
                     Close
                   </Button>

@@ -20,7 +20,8 @@ const LessonQuestions = () => {
     return getLesson(userData.characters, CharacterType.Alphabets).filter(
       (q: QuestionCharacter) =>
         q.questionType == QuestionType.McqCharacter ||
-        q.questionType == QuestionType.McqSign,
+        q.questionType == QuestionType.McqSign ||
+        q.questionType == QuestionType.Introduction,
     );
   }, [userData]);
 
@@ -28,7 +29,8 @@ const LessonQuestions = () => {
     return getLesson(userData.characters, CharacterType.Numbers).filter(
       (q: QuestionCharacter) =>
         q.questionType == QuestionType.McqCharacter ||
-        q.questionType == QuestionType.McqSign,
+        q.questionType == QuestionType.McqSign ||
+        q.questionType == QuestionType.Introduction,
     );
   }, [userData]);
 
