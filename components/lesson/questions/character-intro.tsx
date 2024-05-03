@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { CharacterQuestion } from "@/types";
+import { CharacterQuestion, ClassNameProp } from "@/types";
 import clsx from "clsx";
-import { Progress } from "@nextui-org/progress";
+import { CircularProgress } from "@nextui-org/progress";
+import { cn } from "@/lib/utils";
 
 const Introduction = (porps: CharacterQuestion) => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
@@ -11,12 +12,12 @@ const Introduction = (porps: CharacterQuestion) => {
   useEffect(() => {
     setIsDomLoaded(true);
     const interval = setInterval(() => {
-      if (timer == 6000 && onValueChange) {
+      if (timer == 2500 && onValueChange) {
         onValueChange(character);
       } else {
-        setTimer((prev) => prev + 8);
+        setTimer((prev) => prev + 4);
       }
-    }, 1);
+    }, 2);
 
     return () => {
       clearInterval(interval);
@@ -39,6 +40,10 @@ const Introduction = (porps: CharacterQuestion) => {
           <span className="text-center text-4xl font-semibold sm:text-9xl">
             {character}
           </span>
+          <PracticeTimer
+            timer={timer}
+            className="mt-6 hidden sm:flex lg:mt-14"
+          />
         </div>
 
         <div className="relative aspect-square h-[280px] w-[280px] overflow-hidden rounded-2xl border-2 border-foreground/20  sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px] lg:h-[380px] lg:w-[380px]">
@@ -49,19 +54,44 @@ const Introduction = (porps: CharacterQuestion) => {
             muted
             loop
           ></video>
-          <Progress
-            color={timer >= 6000 ? "primary" : "warning"}
-            aria-label="Loading..."
-            value={timer}
-            maxValue={6000}
-            className={
-              "absolute bottom-0 z-10  h-2 w-full rounded-none px-0 md:h-2.5"
-            }
-          />
         </div>
+        <PracticeTimer timer={timer} className="mt-6 flex sm:hidden" />
       </div>
     </div>
   );
 };
 
 export default Introduction;
+
+interface PracticeTimerProps extends ClassNameProp {
+  timer: number;
+}
+
+const PracticeTimer = (props: PracticeTimerProps) => {
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-center gap-3",
+        props.className,
+        props.timer >= 2500 ? "text-primary" : "text-warning",
+      )}
+    >
+      <CircularProgress
+        color={props.timer >= 2500 ? "primary" : "warning"}
+        aria-label="Loading..."
+        value={props.timer}
+        maxValue={2500}
+        strokeWidth={3.6}
+        classNames={{
+          svg: "h-12 w-12 md:w-14 md:h-14 drop-shadow-md",
+        }}
+      />
+      <div className="flex flex-col">
+        <span className="text-xl font-semibold md:text-2xl">Practice</span>
+        <span className="text-sm font-medium text-foreground md:text-base">
+          Signing the character yourself
+        </span>
+      </div>
+    </div>
+  );
+};
