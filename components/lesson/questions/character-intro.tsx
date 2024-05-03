@@ -11,10 +11,10 @@ const Introduction = (porps: CharacterQuestion) => {
   useEffect(() => {
     setIsDomLoaded(true);
     const interval = setInterval(() => {
-      if (timer == 2000 && onValueChange) {
+      if (timer == 6000 && onValueChange) {
         onValueChange(character);
       } else {
-        setTimer((prev) => prev + 1);
+        setTimer((prev) => prev + 8);
       }
     }, 1);
 
@@ -43,17 +43,17 @@ const Introduction = (porps: CharacterQuestion) => {
 
         <div className="relative aspect-square h-[280px] w-[280px] overflow-hidden rounded-2xl border-2 border-foreground/20  sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px] lg:h-[380px] lg:w-[380px]">
           <video
-            src={`clips/${character}.mp4`}
+            src={`clips/${character}.webm`}
             className="h-full w-full scale-110 object-cover"
             autoPlay
             muted
             loop
           ></video>
           <Progress
-            color={timer >= 2000 ? "primary" : "warning"}
+            color={timer >= 6000 ? "primary" : "warning"}
             aria-label="Loading..."
             value={timer}
-            maxValue={2000}
+            maxValue={6000}
             className={
               "absolute bottom-0 z-10  h-2 w-full rounded-none px-0 md:h-2.5"
             }
