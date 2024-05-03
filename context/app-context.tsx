@@ -8,6 +8,7 @@ import React, {
 import { UserData } from "@/types";
 import { User } from "firebase/auth";
 import { getDefaultProgress } from "@/lib/auth-utils";
+import { randomUsername } from "@/lib/random";
 
 interface AppContextType {
   appUser?: User | null;
@@ -17,13 +18,14 @@ interface AppContextType {
 }
 
 const defaultProgress: Record<string, number> = getDefaultProgress();
+const username: string = randomUsername();
 
 const defaultAppContext: AppContextType = {
   appUser: undefined,
   userData: {
     characters: defaultProgress,
     avatar: "ReliableRhinoceros",
-    userName: "Guest",
+    userName: username,
   },
   updateAppUser: () => {},
   updateUserData: () => {},
@@ -38,10 +40,20 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
   children,
 }) => {
   const [appUser, setAppUser] = useState<User | null>(null);
+  const [username, setUsername] = useState(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      return storedUsername;
+    } else {
+      const newUsername = randomUsername();
+      localStorage.setItem("username", newUsername);
+      return newUsername;
+    }
+  });
   const [userData, setUserData] = useState<UserData>({
     characters: defaultProgress,
     avatar: "ReliableRhinoceros",
-    userName: "Guest",
+    userName: username,
   });
 
   const state: AppContextType = {
