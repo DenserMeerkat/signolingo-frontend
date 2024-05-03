@@ -1,3 +1,4 @@
+"use client";
 import React, {
   createContext,
   useContext,
@@ -41,13 +42,17 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
 }) => {
   const [appUser, setAppUser] = useState<User | null>(null);
   const [username, setUsername] = useState(() => {
-    const storedUsername = localStorage.getItem("username");
-    if (storedUsername) {
-      return storedUsername;
+    if (typeof window !== "undefined") {
+      const storedUsername = window.localStorage.getItem("username");
+      if (storedUsername) {
+        return storedUsername;
+      } else {
+        const newUsername = randomUsername();
+        window.localStorage.setItem("username", newUsername);
+        return newUsername;
+      }
     } else {
-      const newUsername = randomUsername();
-      localStorage.setItem("username", newUsername);
-      return newUsername;
+      return randomUsername();
     }
   });
   const [userData, setUserData] = useState<UserData>({

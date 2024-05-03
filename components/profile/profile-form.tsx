@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -12,6 +13,7 @@ import { profileSchema } from "@/schema";
 import { Link } from "@nextui-org/link";
 
 const ProfileForm = () => {
+  const [isDomLoaded, setIsDomLoaded] = useState(false);
   const { appUser, userData } = useAppContext();
 
   const form = useForm<z.infer<typeof profileSchema>>({
@@ -25,6 +27,43 @@ const ProfileForm = () => {
   const onSubmit = (data: z.infer<typeof profileSchema>) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    setIsDomLoaded(true);
+  }, []);
+
+  if (!isDomLoaded)
+    return (
+      <>
+        <div className="relative grid place-content-center rounded-xl border-secondary-900/20 bg-secondary-900/10 px-6 py-4 pt-8 sm:pt-10">
+          <div className="h-32 w-full sm:h-40"></div>
+        </div>
+        <div className="mx-auto w-full space-y-4 px-4 py-6">
+          <div className="flex flex-col gap-y-4">
+            <Input
+              isClearable={true}
+              color="secondary"
+              size="lg"
+              variant="bordered"
+              type="text"
+              placeholder="Username"
+              label="Username"
+              labelPlacement="outside"
+            />
+            <Input
+              color="secondary"
+              size="lg"
+              variant="bordered"
+              type="text"
+              placeholder="example@gmail.com"
+              label="Email"
+              labelPlacement="outside"
+              readOnly={true}
+            />
+          </div>
+        </div>
+      </>
+    );
 
   return (
     <Form {...form}>
