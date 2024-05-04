@@ -3,8 +3,8 @@ import clsx from "clsx";
 import SignCapture from "./sign-capture";
 import { useEffect } from "react";
 
-const SignWithoutHint = (porps: CharacterQuestion) => {
-  const { character, options, resultType, type, value, onValueChange } = porps;
+const SignWithoutHint = (props: CharacterQuestion) => {
+  const { character, options, resultType, type, value, onValueChange } = props;
 
   useEffect(() => {
     setTimeout(() => {

@@ -5,7 +5,7 @@ export interface CharacterOptionProps extends ClassNameProp {
   character: string;
   resultType?: ResultType;
   isSelected: boolean;
-  onClick: () => void;
+  onClick: (index: number) => void;
   index: number;
 }
 
@@ -33,7 +33,7 @@ export const CharacterOption = ({
       disableRipple={true}
       startContent={<IndexIndicator index={index} />}
       endContent={<div />}
-      onClick={onClick}
+      onClick={() => onClick(index)}
       isSelected={isSelected}
       resultType={resultType}
     >

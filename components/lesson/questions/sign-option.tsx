@@ -6,7 +6,7 @@ export interface SignOptionProps extends ClassNameProp {
   character: string;
   resultType?: ResultType;
   isSelected: boolean;
-  onClick: () => void;
+  onClick: (index: number) => void;
   index: number;
 }
 
@@ -33,7 +33,7 @@ export const SignOption = ({
       variant="bordered"
       disableRipple={true}
       endContent={<IndexIndicator index={index} />}
-      onClick={onClick}
+      onClick={() => onClick(index)}
       isSelected={isSelected}
       resultType={resultType}
     >

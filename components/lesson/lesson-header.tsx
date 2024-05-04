@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/modal";
 import { X } from "lucide-react";
 import { Progress } from "@nextui-org/progress";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface LessonHeaderProps {
   progress: number;
@@ -18,13 +18,15 @@ export interface LessonHeaderProps {
 
 const LessonHeader = (props: LessonHeaderProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleExit = () => {
+    const params = new URLSearchParams(searchParams.toString());
     if (props.progress > 0) {
       onOpen();
     } else {
-      router.push("/learn");
+      router.push("/learn" + "?" + params.toString());
     }
   };
 

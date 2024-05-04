@@ -10,9 +10,9 @@ export interface QuestionViewProps extends CharacterQuestion {
   questionType: QuestionType;
 }
 
-const QuestionView = (porps: QuestionViewProps) => {
-  const { questionType } = porps;
-  const { character, options, resultType, type, value, onValueChange } = porps;
+const QuestionView = (props: QuestionViewProps) => {
+  const { questionType } = props;
+  const { character, options, resultType, type, value, onValueChange } = props;
   switch (questionType) {
     case QuestionType.McqCharacter:
       return (

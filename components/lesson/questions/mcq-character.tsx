@@ -3,8 +3,8 @@ import clsx from "clsx";
 import { CharacterOption } from "./character-option";
 import CharacterSvg from "@/components/learn/characters-svg";
 
-const MCQCharacter = (porps: CharacterQuestion) => {
-  const { character, options, resultType, type, value, onValueChange } = porps;
+const MCQCharacter = (props: CharacterQuestion) => {
+  const { character, options, resultType, type, value, onValueChange } = props;
 
   const handleToggle = (index: number) => {
     onValueChange!(options![index]);
@@ -32,7 +32,7 @@ const MCQCharacter = (porps: CharacterQuestion) => {
                 character={option}
                 isSelected={value === option}
                 resultType={resultType}
-                onClick={() => handleToggle(index)}
+                onClick={handleToggle}
               />
             ))}
           </div>

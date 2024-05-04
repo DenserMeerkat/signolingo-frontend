@@ -5,10 +5,10 @@ import { CircularProgress } from "@nextui-org/progress";
 import { cn } from "@/lib/utils";
 import CharacterClip from "./character-clip";
 
-const Introduction = (porps: CharacterQuestion) => {
+const Introduction = (props: CharacterQuestion) => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
   const [timer, setTimer] = useState(0);
-  const { character, options, resultType, type, value, onValueChange } = porps;
+  const { character, options, resultType, type, value, onValueChange } = props;
 
   useEffect(() => {
     setIsDomLoaded(true);

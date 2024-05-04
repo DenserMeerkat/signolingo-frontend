@@ -4,8 +4,8 @@ import SignCapture from "./sign-capture";
 import CharacterClip from "./character-clip";
 import { useEffect } from "react";
 
-const SignWithHint = (porps: CharacterQuestion) => {
-  const { character, options, resultType, type, value, onValueChange } = porps;
+const SignWithHint = (props: CharacterQuestion) => {
+  const { character, options, resultType, type, value, onValueChange } = props;
 
   useEffect(() => {
     setTimeout(() => {

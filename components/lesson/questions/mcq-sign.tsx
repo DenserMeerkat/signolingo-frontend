@@ -2,8 +2,8 @@ import { SignOption } from "./sign-option";
 import { CharacterQuestion } from "@/types";
 import clsx from "clsx";
 
-const MCQSign = (porps: CharacterQuestion) => {
-  const { character, options, resultType, type, value, onValueChange } = porps;
+const MCQSign = (props: CharacterQuestion) => {
+  const { character, options, resultType, type, value, onValueChange } = props;
 
   const handleToggle = (index: number) => {
     onValueChange!(options![index]);
@@ -31,7 +31,7 @@ const MCQSign = (porps: CharacterQuestion) => {
               character={option}
               isSelected={value === option}
               resultType={resultType}
-              onClick={() => handleToggle(index)}
+              onClick={handleToggle}
             />
           ))}
         </div>
