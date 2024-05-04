@@ -3,6 +3,7 @@ import { CharacterQuestion, ClassNameProp } from "@/types";
 import clsx from "clsx";
 import { CircularProgress } from "@nextui-org/progress";
 import { cn } from "@/lib/utils";
+import CharacterClip from "./character-clip";
 
 const Introduction = (porps: CharacterQuestion) => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
@@ -22,7 +23,7 @@ const Introduction = (porps: CharacterQuestion) => {
     return () => {
       clearInterval(interval);
     };
-  });
+  }, [timer, onValueChange, character]);
 
   if (!isDomLoaded) return <></>;
 
@@ -46,15 +47,7 @@ const Introduction = (porps: CharacterQuestion) => {
           />
         </div>
 
-        <div className="relative aspect-square h-[280px] w-[280px] overflow-hidden rounded-2xl border-2 border-foreground/20  sm:h-[300px] sm:w-[300px] md:h-[350px] md:w-[350px] lg:h-[380px] lg:w-[380px]">
-          <video
-            src={`clips/${character}.webm`}
-            className="h-full w-full scale-110 object-cover"
-            autoPlay
-            muted
-            loop
-          ></video>
-        </div>
+        <CharacterClip character={character} size="lg" />
         <PracticeTimer timer={timer} className="mt-6 flex sm:hidden" />
       </div>
     </div>
@@ -89,7 +82,7 @@ const PracticeTimer = (props: PracticeTimerProps) => {
       <div className="flex flex-col">
         <span className="text-xl font-semibold md:text-2xl">Practice</span>
         <span className="text-sm font-medium text-foreground md:text-base">
-          Signing the character yourself
+          Sign the character yourself
         </span>
       </div>
     </div>

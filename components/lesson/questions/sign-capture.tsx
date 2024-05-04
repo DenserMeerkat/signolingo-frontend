@@ -5,7 +5,7 @@ interface SignCaptureProps {
   onFrame: (data: (string | null | undefined)[]) => void;
 }
 
-const SignCapture = ({ onFrame }: SignCaptureProps) => {
+const SignCapture: React.FC<SignCaptureProps> = ({ onFrame }) => {
   const webcamRef = useRef<Webcam & HTMLVideoElement>(null);
 
   const captureFrame = useCallback(() => {
@@ -28,10 +28,10 @@ const SignCapture = ({ onFrame }: SignCaptureProps) => {
     return filteredFrames;
   }, [captureFrame]);
 
-  const videoConstraints = {
+  const videoConstraints: MediaTrackConstraints = {
+    facingMode: "user",
     width: 1280,
     height: 720,
-    facingMode: "user",
   };
 
   useEffect(() => {
@@ -46,15 +46,15 @@ const SignCapture = ({ onFrame }: SignCaptureProps) => {
   }, [captureFrames, onFrame]);
 
   return (
-    <div>
-      {/* <Webcam
+    <div className="aspect-[5/4] overflow-hidden rounded-xl sm:aspect-video">
+      <Webcam
         ref={webcamRef}
         audio={false}
-        height={720}
+        mirrored={true}
         screenshotFormat="image/jpeg"
-        width={1280}
         videoConstraints={videoConstraints}
-      ></Webcam> */}
+        className="h-full w-full object-cover"
+      ></Webcam>
     </div>
   );
 };

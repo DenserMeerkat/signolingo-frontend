@@ -17,21 +17,11 @@ import { useMemo } from "react";
 const LessonQuestions = () => {
   const { appUser, userData } = useAppContext();
   const alphabetQuestions: QuestionCharacter[] = useMemo(() => {
-    return getLesson(userData.characters, CharacterType.Alphabets).filter(
-      (q: QuestionCharacter) =>
-        q.questionType == QuestionType.McqCharacter ||
-        q.questionType == QuestionType.McqSign ||
-        q.questionType == QuestionType.Introduction,
-    );
+    return getLesson(userData.characters, CharacterType.Alphabets);
   }, [userData]);
 
   const numberQuestions: QuestionCharacter[] = useMemo(() => {
-    return getLesson(userData.characters, CharacterType.Numbers).filter(
-      (q: QuestionCharacter) =>
-        q.questionType == QuestionType.McqCharacter ||
-        q.questionType == QuestionType.McqSign ||
-        q.questionType == QuestionType.Introduction,
-    );
+    return getLesson(userData.characters, CharacterType.Numbers);
   }, [userData]);
 
   const search = useSearchParams();
