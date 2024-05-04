@@ -5,8 +5,8 @@ import clsx from "clsx";
 const MCQSign = (props: CharacterQuestion) => {
   const { character, options, resultType, type, value, onValueChange } = props;
 
-  const handleToggle = (index: number) => {
-    onValueChange!(options![index]);
+  const handleToggle = (ind: number) => {
+    onValueChange!(options![ind]);
   };
 
   return (
@@ -31,7 +31,7 @@ const MCQSign = (props: CharacterQuestion) => {
               character={option}
               isSelected={value === option}
               resultType={resultType}
-              onClick={handleToggle}
+              onClick={value === option ? () => {} : handleToggle}
             />
           ))}
         </div>

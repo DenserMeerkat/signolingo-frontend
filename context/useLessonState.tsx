@@ -76,21 +76,34 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
   const handleValueChange = (value: string) => {
     dispatch({
       type: "SET_ANSWERS",
-      answers: state.answers.map((answer, index) =>
-        index === state.currentIndex ? value : answer,
+      answers: state.answers.map((answer, i) =>
+        i === state.currentIndex ? value : answer,
       ),
     });
     dispatch({ type: "SET_IS_PRIMARY_DISABLED", isPrimaryDisabled: false });
   };
 
-  const handleAnswerSubmission = () => {
+  const triggerAnswerSubmission = (value: string) => {
+    dispatch({
+      type: "SET_ANSWERS",
+      answers: state.answers.map((answer, index) =>
+        index === state.currentIndex ? value : answer,
+      ),
+    });
+    handleAnswerSubmission(true);
+  };
+
+  const handleAnswerSubmission = (forceTrue?: boolean) => {
     const correctAnswer = questions[state.currentIndex].character;
     const isCorrect = state.answers[state.currentIndex] === correctAnswer;
-
     dispatch({
       type: "SET_RESULT",
       result: {
-        type: isCorrect ? ResultType.Correct : ResultType.Incorrect,
+        type: forceTrue
+          ? ResultType.Correct
+          : isCorrect
+            ? ResultType.Correct
+            : ResultType.Incorrect,
         answer: correctAnswer,
         optionIndex:
           questions[state.currentIndex].options?.indexOf(correctAnswer),
@@ -145,5 +158,6 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
     state,
     handleValueChange,
     handlePrimaryClick,
+    triggerAnswerSubmission,
   };
 };

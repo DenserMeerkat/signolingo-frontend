@@ -22,11 +22,10 @@ const LessonHeader = (props: LessonHeaderProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleExit = () => {
-    const params = new URLSearchParams(searchParams.toString());
     if (props.progress > 0) {
       onOpen();
     } else {
-      router.push("/learn" + "?" + params.toString());
+      router.push("/learn" + "?" + searchParams.toString());
     }
   };
 
@@ -44,7 +43,11 @@ const LessonHeader = (props: LessonHeaderProps) => {
           >
             <X />
           </Button>
-          <ExitModal isOpen={isOpen} onOpenChange={onOpenChange} />
+          <ExitModal
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            handleExit={handleExit}
+          />
         </>
         <div className="relative w-full">
           <Progress
@@ -64,9 +67,11 @@ export default LessonHeader;
 const ExitModal = ({
   isOpen,
   onOpenChange,
+  handleExit,
 }: {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
+  handleExit: () => void;
 }) => {
   return (
     <Modal

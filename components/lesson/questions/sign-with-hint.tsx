@@ -1,17 +1,32 @@
-import { CharacterQuestion } from "@/types";
+import { CharacterQuestion, CharacterType } from "@/types";
 import clsx from "clsx";
 import SignCapture from "./sign-capture";
 import CharacterClip from "./character-clip";
 import { useEffect } from "react";
+import { getPrediction } from "@/lib/request";
 
-const SignWithHint = (props: CharacterQuestion) => {
-  const { character, options, resultType, type, value, onValueChange } = props;
+interface SignWithHintProps extends CharacterQuestion {
+  triggerAnswerSubmission: (value: string) => void;
+}
+
+const SignWithHint = (props: SignWithHintProps) => {
+  const {
+    character,
+    options,
+    resultType,
+    type,
+    value,
+    onValueChange,
+    triggerAnswerSubmission,
+  } = props;
 
   useEffect(() => {
     setTimeout(() => {
-      if (onValueChange) onValueChange(character);
-    }, 2000);
-  });
+      if (onValueChange && value !== character) {
+        onValueChange(character);
+      }
+    }, 10000);
+  }, [character]);
 
   return (
     <div
@@ -46,8 +61,14 @@ const SignWithHint = (props: CharacterQuestion) => {
               />
             </div>
             <SignCapture
-              onFrame={(data) => {
-                console.log(data);
+              onFrame={async (data) => {
+                if (onValueChange && value !== character) {
+                  const prediction = await getPrediction(type, data, true);
+                  if (prediction === character) {
+                    onValueChange(prediction);
+                    triggerAnswerSubmission(prediction);
+                  }
+                }
               }}
             />
           </div>

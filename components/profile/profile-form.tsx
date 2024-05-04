@@ -14,7 +14,7 @@ import { Link } from "@nextui-org/link";
 
 const ProfileForm = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
-  const { appUser, userData } = useAppContext();
+  const { appUser, userData, updateUserData } = useAppContext();
 
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
@@ -25,7 +25,18 @@ const ProfileForm = () => {
   });
 
   const onSubmit = (data: z.infer<typeof profileSchema>) => {
-    console.log(data);
+    if (!appUser) {
+      updateUserData({
+        characters: userData.characters,
+        userName: data.username,
+        avatar: data.avatar,
+      });
+      form.reset(form.watch(), {
+        keepValues: false,
+        keepDirty: false,
+        keepDefaultValues: false,
+      });
+    }
   };
 
   useEffect(() => {
@@ -67,35 +78,35 @@ const ProfileForm = () => {
 
   return (
     <Form {...form}>
-      <div className="relative grid place-content-center rounded-xl border-secondary-900/20 bg-secondary-900/10 px-6 py-4 pt-8 sm:pt-10">
-        <FormField
-          control={form.control}
-          name="avatar"
-          render={({ field }) => (
-            <FormControl>
-              <>
-                <EditAvatar
-                  value={field.value ?? ""}
-                  onChange={field.onChange}
-                />
-                <div className="relative h-32 w-32 rounded-3xl border-3 border-dashed border-secondary-900/80 bg-secondary-800/10 dark:border-secondary-500/20 sm:h-40 sm:w-40">
-                  <Image
-                    key={field.value}
-                    src={`/avatars/${field.value}.svg`}
-                    alt={"Avatar: " + field.value}
-                    fill={true}
-                    className="p-3"
-                  />
-                </div>
-              </>
-            </FormControl>
-          )}
-        />
-      </div>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto w-full space-y-4 px-4 py-6"
+        className="mx-auto w-full space-y-4 px-4"
       >
+        <div className="relative grid place-content-center rounded-xl border-secondary-900/20 bg-secondary-900/10 px-6 py-4 pt-8 sm:pt-10">
+          <FormField
+            control={form.control}
+            name="avatar"
+            render={({ field }) => (
+              <FormControl>
+                <>
+                  <EditAvatar
+                    value={field.value ?? ""}
+                    onChange={field.onChange}
+                  />
+                  <div className="relative h-32 w-32 rounded-3xl border-3 border-dashed border-secondary-900/80 bg-secondary-800/10 dark:border-secondary-500/20 sm:h-40 sm:w-40">
+                    <Image
+                      key={field.value}
+                      src={`/avatars/${field.value}.svg`}
+                      alt={"Avatar: " + field.value}
+                      fill={true}
+                      className="p-3"
+                    />
+                  </div>
+                </>
+              </FormControl>
+            )}
+          />
+        </div>
         <div className="flex flex-col gap-y-4">
           <FormField
             control={form.control}

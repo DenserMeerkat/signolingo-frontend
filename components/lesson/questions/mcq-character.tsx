@@ -6,8 +6,8 @@ import CharacterSvg from "@/components/learn/characters-svg";
 const MCQCharacter = (props: CharacterQuestion) => {
   const { character, options, resultType, type, value, onValueChange } = props;
 
-  const handleToggle = (index: number) => {
-    onValueChange!(options![index]);
+  const handleToggle = (ind: number) => {
+    onValueChange!(options![ind]);
   };
 
   return (
@@ -22,7 +22,7 @@ const MCQCharacter = (props: CharacterQuestion) => {
         </span>
         <div className="mt-6 flex w-full flex-col items-center gap-4 sm:flex-row lg:mt-8">
           <div className="w-32 text-foreground-500 sm:w-96">
-            <CharacterSvg character={character} />
+            <CharacterSvg character={character} className="-scale-x-100" />
           </div>
           <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-1">
             {options!.map((option: string, index: number) => (

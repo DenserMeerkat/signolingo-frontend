@@ -15,6 +15,7 @@ const Introduction = (props: CharacterQuestion) => {
     const interval = setInterval(() => {
       if (timer == 2500 && onValueChange) {
         onValueChange(character);
+        clearInterval(interval);
       } else {
         setTimer((prev) => prev + 4);
       }
@@ -23,7 +24,7 @@ const Introduction = (props: CharacterQuestion) => {
     return () => {
       clearInterval(interval);
     };
-  }, [timer, onValueChange, character]);
+  }, [timer, character]);
 
   if (!isDomLoaded) return <></>;
 

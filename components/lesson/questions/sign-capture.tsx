@@ -50,10 +50,9 @@ const SignCapture: React.FC<SignCaptureProps> = ({ onFrame }) => {
       <Webcam
         ref={webcamRef}
         audio={false}
-        mirrored={true}
         screenshotFormat="image/jpeg"
         videoConstraints={videoConstraints}
-        className="h-full w-full object-cover"
+        className="h-full w-full -scale-x-100 object-cover"
       ></Webcam>
     </div>
   );

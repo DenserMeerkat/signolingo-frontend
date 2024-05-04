@@ -13,6 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { getLesson } from "@/lib/lesson";
 import { useAppContext } from "@/context/app-context";
 import { useMemo } from "react";
+import { getCharacterType } from "@/lib/utils";
 
 const LessonQuestions = () => {
   const { appUser, userData } = useAppContext();
@@ -30,8 +31,12 @@ const LessonQuestions = () => {
     search.get("c") === CharacterType.Alphabets
       ? alphabetQuestions
       : numberQuestions;
-  const { state, handleValueChange, handlePrimaryClick } =
-    useLessonState(questions);
+  const {
+    state,
+    handleValueChange,
+    handlePrimaryClick,
+    triggerAnswerSubmission,
+  } = useLessonState(questions);
 
   return (
     <div className="relative h-fit min-h-screen w-full py-6 md:py-8">
@@ -42,9 +47,10 @@ const LessonQuestions = () => {
           character={questions[state.currentIndex].character}
           options={questions[state.currentIndex].options}
           resultType={state.result?.type}
-          type={CharacterType.Alphabets}
+          type={getCharacterType(questions[state.currentIndex].character)}
           value={state.answers[state.currentIndex]}
           onValueChange={handleValueChange}
+          triggerAnswerSubmission={triggerAnswerSubmission}
         />
       )}
       <LessonBottombar

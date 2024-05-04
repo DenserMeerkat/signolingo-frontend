@@ -8,11 +8,20 @@ import SignWithoutHint from "./sign-without-hint";
 
 export interface QuestionViewProps extends CharacterQuestion {
   questionType: QuestionType;
+  triggerAnswerSubmission: (value: string) => void;
 }
 
 const QuestionView = (props: QuestionViewProps) => {
   const { questionType } = props;
-  const { character, options, resultType, type, value, onValueChange } = props;
+  const {
+    character,
+    options,
+    resultType,
+    type,
+    value,
+    onValueChange,
+    triggerAnswerSubmission,
+  } = props;
   switch (questionType) {
     case QuestionType.McqCharacter:
       return (
@@ -60,6 +69,7 @@ const QuestionView = (props: QuestionViewProps) => {
           type={type}
           value={value}
           onValueChange={onValueChange}
+          triggerAnswerSubmission={triggerAnswerSubmission}
         />
       );
     case QuestionType.SignWithoutHint:
@@ -72,6 +82,7 @@ const QuestionView = (props: QuestionViewProps) => {
           type={type}
           value={value}
           onValueChange={onValueChange}
+          triggerAnswerSubmission={triggerAnswerSubmission}
         />
       );
     default:
