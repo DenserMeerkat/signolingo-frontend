@@ -8,7 +8,7 @@ import CharacterClip from "./character-clip";
 const Introduction = (props: CharacterQuestion) => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
   const [timer, setTimer] = useState(0);
-  const { character, options, resultType, type, value, onValueChange } = props;
+  const { character, resultType, type, onValueChange } = props;
 
   useEffect(() => {
     setIsDomLoaded(true);

@@ -3,8 +3,7 @@ import React from "react";
 import MCQCharacter from "./mcq-character";
 import MCQSign from "./mcq-sign";
 import Introduction from "./character-intro";
-import SignWithHint from "./sign-with-hint";
-import SignWithoutHint from "./sign-without-hint";
+import SignWithOrWithoutHint from "./sign-with-or-without-hint";
 
 export interface QuestionViewProps extends CharacterQuestion {
   questionType: QuestionType;
@@ -61,7 +60,7 @@ const QuestionView = (props: QuestionViewProps) => {
       );
     case QuestionType.SignWithHint:
       return (
-        <SignWithHint
+        <SignWithOrWithoutHint
           key={character}
           character={character}
           options={options}
@@ -70,11 +69,12 @@ const QuestionView = (props: QuestionViewProps) => {
           value={value}
           onValueChange={onValueChange}
           triggerAnswerSubmission={triggerAnswerSubmission}
+          showHint={true}
         />
       );
     case QuestionType.SignWithoutHint:
       return (
-        <SignWithoutHint
+        <SignWithOrWithoutHint
           key={character}
           character={character}
           options={options}
@@ -83,6 +83,7 @@ const QuestionView = (props: QuestionViewProps) => {
           value={value}
           onValueChange={onValueChange}
           triggerAnswerSubmission={triggerAnswerSubmission}
+          showHint={false}
         />
       );
     default:

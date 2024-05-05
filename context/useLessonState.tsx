@@ -81,16 +81,17 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
       ),
     });
     dispatch({ type: "SET_IS_PRIMARY_DISABLED", isPrimaryDisabled: false });
+    console.log(state.answers);
   };
 
-  const triggerAnswerSubmission = (value: string) => {
+  const triggerAnswerSubmission = (value: string, forceTrue?: boolean) => {
     dispatch({
       type: "SET_ANSWERS",
       answers: state.answers.map((answer, index) =>
         index === state.currentIndex ? value : answer,
       ),
     });
-    handleAnswerSubmission(true);
+    handleAnswerSubmission(forceTrue ?? true);
   };
 
   const handleAnswerSubmission = (forceTrue?: boolean) => {

@@ -73,6 +73,7 @@ const ExitModal = ({
   onOpenChange: (open: boolean) => void;
   handleExit: () => void;
 }) => {
+  const searchParams = useSearchParams();
   return (
     <Modal
       size="xs"
@@ -102,7 +103,7 @@ const ExitModal = ({
                 </span>
               </Button>
               <Button
-                href={"/learn"}
+                href={"/learn" + "?" + searchParams.toString()}
                 as={Link}
                 color="danger"
                 variant="light"

@@ -104,15 +104,22 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                             <span className="text-xl font-semibold tracking-wider md:text-2xl">
                               {resultMessage}
                             </span>
-                            <span className="text-base text-foreground">
-                              The right answer is
-                              {result?.questionType ===
-                                QuestionType.McqCharacter && (
-                                <span className="ml-1 font-semibold text-warning md:text-xl">
-                                  &lsquo;{result?.answer}&rsquo;
-                                </span>
-                              )}
-                            </span>
+                            {result?.questionType ===
+                            QuestionType.McqCharacter ? (
+                              <span className="text-base text-foreground">
+                                The right answer is
+                                {result?.questionType ===
+                                  QuestionType.McqCharacter && (
+                                  <span className="ml-1 font-semibold text-warning md:text-xl">
+                                    &lsquo;{result?.answer}&rsquo;
+                                  </span>
+                                )}
+                              </span>
+                            ) : (
+                              <span className="text-base text-foreground">
+                                You didn&apos;t get it right in time.
+                              </span>
+                            )}
                           </div>
                         ) : (
                           <div className="flex flex-col text-primary">
