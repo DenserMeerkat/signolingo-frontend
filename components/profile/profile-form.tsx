@@ -46,10 +46,10 @@ const ProfileForm = () => {
   if (!isDomLoaded)
     return (
       <>
-        <div className="relative grid place-content-center rounded-xl border-secondary-900/20 bg-secondary-900/10 px-6 py-4 pt-8 sm:pt-10">
-          <div className="h-32 w-full sm:h-40"></div>
-        </div>
-        <div className="mx-auto w-full space-y-4 px-4 py-6">
+        <div className="mx-auto w-full space-y-4 px-4">
+          <div className="relative grid place-content-center rounded-xl border-secondary-900/20 bg-secondary-900/10 px-6 py-4 pt-8 sm:pt-10">
+            <div className="h-32 w-full sm:h-40"></div>
+          </div>
           <div className="flex flex-col gap-y-4">
             <Input
               isClearable={true}

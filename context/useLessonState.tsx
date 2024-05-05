@@ -10,7 +10,7 @@ import {
 
 interface LessonState {
   progress: number;
-  state: LessonStatus;
+  status: LessonStatus;
   result: Result | undefined;
   isPrimaryDisabled: boolean;
   showSecondaryButton: boolean;
@@ -21,7 +21,7 @@ interface LessonState {
 
 type Action =
   | { type: "SET_PROGRESS"; progress: number }
-  | { type: "SET_STATE"; state: LessonStatus }
+  | { type: "SET_STATUS"; status: LessonStatus }
   | { type: "SET_RESULT"; result: Result | undefined }
   | { type: "SET_IS_PRIMARY_DISABLED"; isPrimaryDisabled: boolean }
   | { type: "SET_SHOW_SECONDARY_BUTTON"; showSecondaryButton: boolean }
@@ -33,8 +33,8 @@ function reducer(state: LessonState, action: Action): LessonState {
   switch (action.type) {
     case "SET_PROGRESS":
       return { ...state, progress: action.progress };
-    case "SET_STATE":
-      return { ...state, state: action.state };
+    case "SET_STATUS":
+      return { ...state, status: action.status };
     case "SET_RESULT":
       return { ...state, result: action.result };
     case "SET_IS_PRIMARY_DISABLED":
@@ -55,7 +55,7 @@ function reducer(state: LessonState, action: Action): LessonState {
 export const useLessonState = (questions: QuestionCharacter[]) => {
   const [state, dispatch] = useReducer(reducer, {
     progress: 0,
-    state: LessonStatus.Result,
+    status: LessonStatus.Result,
     result: undefined,
     isPrimaryDisabled: true,
     showSecondaryButton: false,
@@ -65,13 +65,13 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
   });
 
   useEffect(() => {
-    if (state.state === LessonStatus.Question) {
+    if (state.status === LessonStatus.Question) {
       dispatch({
         type: "SET_IS_PRIMARY_DISABLED",
         isPrimaryDisabled: !state.answers[state.currentIndex],
       });
     }
-  }, [state.state, state.currentIndex, state.answers]);
+  }, [state.status, state.currentIndex, state.answers]);
 
   const handleValueChange = (value: string) => {
     dispatch({
@@ -120,7 +120,7 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
           : true,
     });
 
-    dispatch({ type: "SET_STATE", state: LessonStatus.Result });
+    dispatch({ type: "SET_STATUS", status: LessonStatus.Result });
 
     const progress = ((state.currentIndex + 1) * 100) / questions.length;
     dispatch({ type: "SET_PROGRESS", progress });
@@ -132,9 +132,9 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
         type: "SET_CURRENT_INDEX",
         currentIndex: state.currentIndex + 1,
       });
-      dispatch({ type: "SET_STATE", state: LessonStatus.Question });
+      dispatch({ type: "SET_STATUS", status: LessonStatus.Question });
     } else {
-      dispatch({ type: "SET_STATE", state: LessonStatus.Complete });
+      dispatch({ type: "SET_STATUS", status: LessonStatus.Complete });
     }
     dispatch({ type: "SET_RESULT", result: undefined });
 
@@ -143,10 +143,10 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
   };
 
   const handlePrimaryClick = (questionType: QuestionType) => {
-    if (state.state === LessonStatus.Result) {
+    if (state.status === LessonStatus.Result) {
       handleMoveToNextQuestion();
     } else if (
-      state.state === LessonStatus.Question &&
+      state.status === LessonStatus.Question &&
       questionType != QuestionType.Introduction
     ) {
       handleAnswerSubmission();

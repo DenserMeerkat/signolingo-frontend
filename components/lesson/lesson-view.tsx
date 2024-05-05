@@ -1,6 +1,6 @@
 "use client";
-import LessonBottombar from "./lesson-bottombar";
-import LessonHeader from "./lesson-header";
+import LessonBottombar from "./bottombar";
+import LessonHeader from "./header";
 import {
   CharacterType,
   QuestionCharacter,
@@ -14,6 +14,7 @@ import { getLesson } from "@/lib/lesson";
 import { useAppContext } from "@/context/app-context";
 import { useMemo } from "react";
 import { getCharacterType } from "@/lib/utils";
+import LessonComplete from "./complete";
 
 const LessonQuestions = () => {
   const { appUser, userData } = useAppContext();
@@ -41,7 +42,7 @@ const LessonQuestions = () => {
   return (
     <div className="relative h-fit min-h-screen w-full py-6 md:py-8">
       <LessonHeader progress={state.progress} streak={3} />
-      {state.state !== LessonStatus.Complete && (
+      {state.status !== LessonStatus.Complete ? (
         <QuestionView
           questionType={questions[state.currentIndex].questionType}
           character={questions[state.currentIndex].character}
@@ -52,9 +53,11 @@ const LessonQuestions = () => {
           onValueChange={handleValueChange}
           triggerAnswerSubmission={triggerAnswerSubmission}
         />
+      ) : (
+        <LessonComplete questions={questions} answers={state.answers} />
       )}
       <LessonBottombar
-        state={state.state}
+        status={state.status}
         result={state.result}
         isPrimaryDisabled={state.isPrimaryDisabled}
         showSecondaryButton={state.showSecondaryButton}

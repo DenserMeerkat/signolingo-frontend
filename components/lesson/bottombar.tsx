@@ -5,6 +5,7 @@ import { randomCorrectMessage, randomIncorrectMessage } from "@/lib/random";
 import clsx from "clsx";
 import { Result, ResultType, LessonStatus, QuestionType } from "@/types";
 import CharacterSvg from "../learn/characters-svg";
+import { motion } from "framer-motion";
 
 export enum PrimaryButtonType {
   Check = "Check",
@@ -12,7 +13,7 @@ export enum PrimaryButtonType {
 }
 
 interface LessonBottombarProps {
-  state: LessonStatus;
+  status: LessonStatus;
   result?: Result;
   showSecondaryButton?: boolean;
   showResult?: boolean;
@@ -23,7 +24,7 @@ interface LessonBottombarProps {
 
 const LessonBottombar = (props: LessonBottombarProps) => {
   const {
-    state,
+    status,
     result,
     showSecondaryButton = true,
     showResult = true,
@@ -36,7 +37,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
   const [resultMessage, setResultMessage] = useState<string>("Loading");
 
   useEffect(() => {
-    if (state === LessonStatus.Result) {
+    if (status === LessonStatus.Result) {
       setResultMessage(
         result?.type === ResultType.Correct
           ? randomCorrectMessage()
@@ -44,7 +45,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
       );
     }
     setIsDomLoaded(true);
-  }, [state, result]);
+  }, [status, result]);
 
   if (!isDomLoaded)
     return (
@@ -64,24 +65,37 @@ const LessonBottombar = (props: LessonBottombarProps) => {
           "h-full w-full bg-foreground/[0.04] dark:bg-foreground/[0.015]",
           {
             "bg-primary-500/10 dark:bg-primary-200/5":
-              state == LessonStatus.Result &&
+              status == LessonStatus.Result &&
               result?.type === ResultType.Correct,
           },
           {
             "bg-danger-500/[0.15] dark:bg-danger-200/[0.06]":
-              state == LessonStatus.Result &&
+              status == LessonStatus.Result &&
               result?.type === ResultType.Incorrect,
           },
         )}
       >
         <div className="mx-auto flex h-full max-w-5xl flex-col justify-between gap-4 px-6 py-4 md:flex-row md:items-center">
           {(() => {
-            switch (state) {
+            switch (status) {
               case LessonStatus.Result:
                 if (showResult)
                   return (
                     <div className="flex items-center gap-4">
-                      <div
+                      <motion.div
+                        initial={{
+                          scale: 0,
+                          rotate: -180,
+                        }}
+                        animate={{
+                          scale: 1,
+                          rotate: 0,
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                        }}
                         className={
                           "hidden h-12 w-12 place-content-center rounded-3xl bg-foreground/[0.05] min-[450px]:grid md:h-16 md:w-16"
                         }
@@ -97,7 +111,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
                             className="text-primary-500 md:h-8 md:w-8"
                           />
                         )}
-                      </div>
+                      </motion.div>
                       <div>
                         {result?.type === ResultType.Incorrect ? (
                           <div className="flex flex-col text-danger-500">
@@ -171,7 +185,7 @@ const LessonBottombar = (props: LessonBottombarProps) => {
 
           <PrimaryButton
             resultType={
-              state == LessonStatus.Result
+              status == LessonStatus.Result
                 ? result?.type ?? ResultType.Correct
                 : ResultType.Correct
             }
