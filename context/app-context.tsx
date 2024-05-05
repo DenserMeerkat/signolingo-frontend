@@ -1,4 +1,3 @@
-"use client";
 import React, {
   createContext,
   useContext,
@@ -16,6 +15,7 @@ interface AppContextType {
   userData: UserData;
   updateAppUser: (user: User | null) => void;
   updateUserData: (userData: UserData) => void;
+  updateLocalStorage: (userData: UserData) => void;
 }
 
 const defaultProgress: Record<string, number> = getDefaultProgress();
@@ -28,8 +28,9 @@ const defaultAppContext: AppContextType = {
     avatar: "ReliableRhinoceros",
     userName: username,
   },
-  updateAppUser: () => {},
-  updateUserData: () => {},
+  updateAppUser: (user: User | null) => {},
+  updateUserData: (userData: UserData) => {},
+  updateLocalStorage: (userData: UserData) => {},
 };
 const AppContext = createContext<AppContextType>(defaultAppContext);
 
@@ -55,30 +56,32 @@ export const AppContextProvider: React.FC<AppContextProviderProps> = ({
       return randomUsername();
     }
   });
+
   const [userData, setUserData] = useState<UserData>({
     characters: defaultProgress,
     avatar: "ReliableRhinoceros",
     userName: username,
   });
 
+  const updateLocalStorage = (userData: UserData) => {
+    const stateToStore = JSON.stringify({ appUser, userData });
+    localStorage.setItem("signolingo", stateToStore);
+  };
+
   const state: AppContextType = {
     appUser: appUser,
     userData: userData,
     updateAppUser: setAppUser,
     updateUserData: setUserData,
+    updateLocalStorage: updateLocalStorage,
   };
 
   useEffect(() => {
-    const storedState = localStorage.getItem("appState");
+    const storedState = localStorage.getItem("signolingo");
     if (storedState) {
       const parsedState = JSON.parse(storedState);
       setUserData(parsedState.userData);
     }
-  }, []);
-
-  useEffect(() => {
-    const stateToStore = JSON.stringify({ appUser, userData });
-    localStorage.setItem("appState", stateToStore);
   }, []);
 
   return <AppContext.Provider value={state}>{children}</AppContext.Provider>;

@@ -7,7 +7,7 @@ import { getUserData } from "@/lib/auth-utils";
 import { useAppContext } from "@/context/app-context";
 
 export default function Home() {
-  const { updateAppUser, updateUserData } = useAppContext();
+  const { updateAppUser, updateUserData, updateLocalStorage } = useAppContext();
   const router = useRouter();
   const [user] = useAuthState(auth);
 
@@ -20,6 +20,7 @@ export default function Home() {
         if (data) {
           updateAppUser(user);
           updateUserData(data);
+          updateLocalStorage(data);
         }
       });
     }

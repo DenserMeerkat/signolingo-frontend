@@ -14,15 +14,17 @@ import { Link } from "@nextui-org/link";
 
 const ProfileForm = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
-  const { appUser, userData, updateUserData } = useAppContext();
+  const { appUser, userData, updateUserData, updateLocalStorage } =
+    useAppContext();
 
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
-    defaultValues: {
-      username: userData.userName,
-      avatar: userData.avatar,
-    },
   });
+
+  useEffect(() => {
+    form.setValue("username", userData.userName);
+    form.setValue("avatar", userData.avatar);
+  }, [userData]);
 
   const onSubmit = (data: z.infer<typeof profileSchema>) => {
     if (!appUser) {
@@ -31,11 +33,17 @@ const ProfileForm = () => {
         userName: data.username,
         avatar: data.avatar,
       });
-      form.reset(form.watch(), {
-        keepValues: false,
-        keepDirty: false,
-        keepDefaultValues: false,
+      updateLocalStorage({
+        characters: userData.characters,
+        userName: data.username,
+        avatar: data.avatar,
       });
+      form.reset(form.watch(), {
+        keepValues: true,
+        keepDirty: false,
+      });
+      form.setValue("username", data.username);
+      form.setValue("avatar", data.avatar);
     }
   };
 

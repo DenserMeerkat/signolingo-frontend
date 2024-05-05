@@ -12,12 +12,13 @@ import QuestionView from "./questions/question-view";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getLesson } from "@/lib/lesson";
 import { useAppContext } from "@/context/app-context";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { getCharacterType } from "@/lib/utils";
 import LessonResultView from "./result";
 
 const LessonQuestions = () => {
-  const { appUser, userData, updateUserData } = useAppContext();
+  const { appUser, userData, updateUserData, updateLocalStorage } =
+    useAppContext();
   const alphabetQuestions: QuestionCharacter[] = useMemo(() => {
     return getLesson(userData.characters, CharacterType.Alphabets);
   }, [userData.characters]);
@@ -43,13 +44,17 @@ const LessonQuestions = () => {
     updateLessonResult,
   } = useLessonState(questions);
 
-  const handleLessonResultUpdate = () => {
+  const handleLessonResultUpdate = useCallback(() => {
     router.push("/learn?" + search.toString());
     updateUserData({
       ...userData,
       characters: state.lessonResult!.updatedCharacterProgress,
     });
-  };
+    updateLocalStorage({
+      ...userData,
+      characters: state.lessonResult!.updatedCharacterProgress,
+    });
+  }, [router, search, updateUserData, userData, state.lessonResult]);
 
   return (
     <div className="relative h-fit min-h-screen w-full py-6 md:py-8">

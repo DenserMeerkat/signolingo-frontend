@@ -33,7 +33,7 @@ const LessonResultView = ({
 
   useEffect(() => {
     updateLessonResult(lessonResult);
-  }, [lessonResult, updateLessonResult]);
+  }, [lessonResult]);
 
   const { View } = useLottie(
     lessonResult.percentage == 100 ? perfectOptions : completeOptions,
