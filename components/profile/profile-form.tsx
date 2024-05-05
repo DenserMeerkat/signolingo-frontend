@@ -27,7 +27,7 @@ const ProfileForm = () => {
   const onSubmit = (data: z.infer<typeof profileSchema>) => {
     if (!appUser) {
       updateUserData({
-        characters: userData.characters,
+        ...userData,
         userName: data.username,
         avatar: data.avatar,
       });
@@ -99,6 +99,7 @@ const ProfileForm = () => {
                       src={`/avatars/${field.value}.svg`}
                       alt={"Avatar: " + field.value}
                       fill={true}
+                      priority={true}
                       className="p-3"
                     />
                   </div>
@@ -120,6 +121,7 @@ const ProfileForm = () => {
                     size="lg"
                     variant="bordered"
                     type="text"
+                    autoComplete="username"
                     placeholder="Username"
                     label="Username"
                     labelPlacement="outside"

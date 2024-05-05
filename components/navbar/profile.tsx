@@ -7,7 +7,6 @@ import { UserCircle2 } from "lucide-react";
 import { ClassNameProp } from "@/types";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useAppContext } from "@/context/app-context";
 
 interface ProfileTileProps extends ClassNameProp {
   isSelected: boolean;
@@ -16,7 +15,6 @@ interface ProfileTileProps extends ClassNameProp {
 
 const ProfileTile = (props: ProfileTileProps) => {
   const params = useSearchParams();
-  const { appUser } = useAppContext();
   const { isSelected, href, className } = props;
   const [hrefPath, setHrefPath] = useState<string>(href);
   const isMobile = useMediaQuery("(max-width: 639px)");

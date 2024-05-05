@@ -58,3 +58,9 @@ export interface UserData {
   avatar: string;
   userName: string;
 }
+
+export interface LessonResult {
+  updatedCharacterProgress: Record<string, number>;
+  percentage: number;
+  pointsEarned: number;
+}

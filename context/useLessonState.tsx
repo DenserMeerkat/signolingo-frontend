@@ -6,6 +6,7 @@ import {
   ResultType,
   LessonStatus,
   QuestionType,
+  LessonResult,
 } from "@/types";
 
 interface LessonState {
@@ -17,6 +18,7 @@ interface LessonState {
   showResult: boolean;
   currentIndex: number;
   answers: string[];
+  lessonResult?: LessonResult;
 }
 
 type Action =
@@ -27,7 +29,8 @@ type Action =
   | { type: "SET_SHOW_SECONDARY_BUTTON"; showSecondaryButton: boolean }
   | { type: "SET_SHOW_RESULT"; showResult: boolean }
   | { type: "SET_CURRENT_INDEX"; currentIndex: number }
-  | { type: "SET_ANSWERS"; answers: string[] };
+  | { type: "SET_ANSWERS"; answers: string[] }
+  | { type: "SET_LESSON_RESULT"; lessonResult: LessonResult };
 
 function reducer(state: LessonState, action: Action): LessonState {
   switch (action.type) {
@@ -47,6 +50,8 @@ function reducer(state: LessonState, action: Action): LessonState {
       return { ...state, currentIndex: action.currentIndex };
     case "SET_ANSWERS":
       return { ...state, answers: action.answers };
+    case "SET_LESSON_RESULT":
+      return { ...state, lessonResult: action.lessonResult };
     default:
       return state;
   }
@@ -62,6 +67,7 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
     showResult: false,
     currentIndex: 0,
     answers: Array(questions.length).fill(null),
+    lessonResult: undefined,
   });
 
   useEffect(() => {
@@ -155,10 +161,15 @@ export const useLessonState = (questions: QuestionCharacter[]) => {
     }
   };
 
+  const updateLessonResult = (lessonResult: LessonResult) => {
+    dispatch({ type: "SET_LESSON_RESULT", lessonResult });
+  };
+
   return {
     state,
     handleValueChange,
     handlePrimaryClick,
     triggerAnswerSubmission,
+    updateLessonResult,
   };
 };

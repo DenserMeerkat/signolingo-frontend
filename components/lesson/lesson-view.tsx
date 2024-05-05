@@ -9,35 +9,47 @@ import {
 } from "@/types";
 import { useLessonState } from "@/context/useLessonState";
 import QuestionView from "./questions/question-view";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getLesson } from "@/lib/lesson";
 import { useAppContext } from "@/context/app-context";
 import { useMemo } from "react";
 import { getCharacterType } from "@/lib/utils";
-import LessonComplete from "./complete";
+import LessonResultView from "./result";
 
 const LessonQuestions = () => {
-  const { appUser, userData } = useAppContext();
+  const { appUser, userData, updateUserData } = useAppContext();
   const alphabetQuestions: QuestionCharacter[] = useMemo(() => {
     return getLesson(userData.characters, CharacterType.Alphabets);
-  }, [userData]);
+  }, [userData.characters]);
 
   const numberQuestions: QuestionCharacter[] = useMemo(() => {
     return getLesson(userData.characters, CharacterType.Numbers);
-  }, [userData]);
+  }, [userData.characters]);
 
+  const router = useRouter();
   const search = useSearchParams();
 
-  const questions =
-    search.get("c") === CharacterType.Alphabets
+  const questions = useMemo(() => {
+    return search.get("c") === CharacterType.Alphabets
       ? alphabetQuestions
       : numberQuestions;
+  }, [search, alphabetQuestions, numberQuestions]);
+
   const {
     state,
     handleValueChange,
     handlePrimaryClick,
     triggerAnswerSubmission,
+    updateLessonResult,
   } = useLessonState(questions);
+
+  const handleLessonResultUpdate = () => {
+    router.push("/learn?" + search.toString());
+    updateUserData({
+      ...userData,
+      characters: state.lessonResult!.updatedCharacterProgress,
+    });
+  };
 
   return (
     <div className="relative h-fit min-h-screen w-full py-6 md:py-8">
@@ -54,7 +66,11 @@ const LessonQuestions = () => {
           triggerAnswerSubmission={triggerAnswerSubmission}
         />
       ) : (
-        <LessonComplete questions={questions} answers={state.answers} />
+        <LessonResultView
+          questions={questions}
+          answers={state.answers}
+          updateLessonResult={updateLessonResult}
+        />
       )}
       <LessonBottombar
         status={state.status}
@@ -62,9 +78,12 @@ const LessonQuestions = () => {
         isPrimaryDisabled={state.isPrimaryDisabled}
         showSecondaryButton={state.showSecondaryButton}
         showResult={state.showResult}
-        onPrimaryClick={() => {
-          handlePrimaryClick(questions[state.currentIndex].questionType);
-        }}
+        onPrimaryClick={
+          state.status === LessonStatus.Complete
+            ? handleLessonResultUpdate
+            : () =>
+                handlePrimaryClick(questions[state.currentIndex].questionType)
+        }
       />
     </div>
   );
